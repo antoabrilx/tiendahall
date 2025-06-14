@@ -7,7 +7,38 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/*
+* Estilos personalizados para sobrescribir Bootstrap
+* Coloca este archivo en src/index.css
+*/
+
+/* Modifica el padding y font-size de los inputs y selectores de Bootstrap */
+.form-control,
+.form-select {
+  padding: 0.5rem 1rem; /* Aumenta el padding vertical y horizontal */
+  font-size: 1.1rem;    /* Hace la fuente un poco más grande */
+}
+
+/* Modifica el padding y font-size de los botones de Bootstrap */
+.btn {
+  padding: 0.6rem 1.2rem; /* Un poco más de padding para los botones */
+  font-size: 1.1rem;      /* Mismo tamaño de fuente que los inputs */
+}
+
+/* Modifica el estilo de foco (cuando un input o botón está seleccionado) */
+/* Este es el equivalente CSS de $input-btn-focus-color, $input-btn-focus-blur, etc. */
+.form-control:focus,
+.form-check-input:focus,
+.btn:focus {
+  border-color: #80bdff; /* Un color de borde azul más brillante */
+  box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25); /* Una sombra azul más pronunciada */
+  outline: 0; /* Quita el outline predeterminado del navegador */
+}
+
+/* Opcional: Centrar el formulario y darle un ancho máximo para mejor visualización */
+.container {
+    max-width: 500px; /* Limita el ancho del formulario */
+    margin-top: 50px; /* Margen superior para separarlo del borde */
+    margin-left: auto; /* Centra el contenedor horizontalmente */
+    margin-right: auto; /* Centra el contenedor horizontalmente */
 }
