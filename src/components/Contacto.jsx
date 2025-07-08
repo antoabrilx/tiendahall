@@ -2,7 +2,7 @@
 // COMPONENTE: Contacto.jsx
 // =====================
 import React from 'react';
-
+import "../styles/Contacto.css"
 const Contacto = () => {
 return (
     <section id="contacto" className="py-16 px-6">

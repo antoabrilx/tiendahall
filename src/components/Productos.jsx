@@ -3,6 +3,7 @@
 // =====================
 import React from 'react';
 import { useCart } from '../context/CartContext';
+import "../styles/Productos.css";
 
 const productos = [
 {
@@ -11,13 +12,6 @@ const productos = [
     descripcion: 'Un vino elegante con notas de frutos rojos maduros, especias y un sutil toque de vainilla.',
     precio: 45.00,
     color: '#8B0000'
-},
-{
-    id: 2,
-    nombre: 'Chardonnay Premium',
-    descripcion: 'Aromas a frutas tropicales y cítricos con un toque de roble.',
-    precio: 38.50,
-    color: '#F5F5DC'
 },
 {
     id: 3,
