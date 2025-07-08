@@ -4,6 +4,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import  tailwindcss from "tailwindcss/vite"
 
 // Configuración con variables de entorno
 const firebaseConfig = {
@@ -17,6 +18,15 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-export const auth = getAuth(app);
-export const googleProvider = new GoogleAuthProvider();
-export const db = getFirestore(app);
+//export const auth = getAuth(app);
+//export const googleProvider = new GoogleAuthProvider();
+//export const db = getFirestore(app);
+export const auth = null;
+export const googleProvider = null;
+export const db = null;
+export default defineConfig (
+  {
+    plugins: [react(), tailwindcss()],
+  }
+)
+
