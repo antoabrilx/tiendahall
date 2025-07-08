@@ -1,0 +1,152 @@
+/* Login.css */
+
+/* Estilos de los modales (Login, Registro, Carrito, Checkout, Confirmación) */
+.modal {
+    position: fixed; /* fixed */ /* cite: 288 */
+    inset: 0; /* inset-0 */ /* cite: 288 */
+    background-color: rgba(0, 0, 0, 0.5); /* bg-black bg-opacity-50 */ /* cite: 288 */
+    z-index: 50; /* z-50 */ /* cite: 288 */
+    display: flex; /* flex */ /* cite: 288 */
+    align-items: center; /* items-center */ /* cite: 288 */
+    justify-content: center; /* justify-center */ /* cite: 288 */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* cite: 204 */
+}
+
+.modal.hidden {
+    display: none; /* hidden */ /* cite: 288 */
+}
+
+.modal > div {
+    background-color: white; /* bg-white */ /* cite: 288 */
+    border-radius: 0.5rem; /* rounded-lg */ /* cite: 288 */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */ /* cite: 288 */
+    max-width: 28rem; /* max-w-md */ /* cite: 288 */
+    width: 100%; /* w-full */ /* cite: 288 */
+    margin-left: 1rem; /* mx-4 */ /* cite: 288 */
+    margin-right: 1rem; /* mx-4 */ /* cite: 288 */
+}
+
+.modal .p-6 {
+    padding: 1.5rem; /* p-6 */ /* cite: 289 */
+}
+
+.modal .flex.justify-between.items-center.mb-4 {
+    display: flex; /* cite: 289 */
+    justify-content: space-between; /* justify-between */ /* cite: 289 */
+    align-items: center; /* items-center */ /* cite: 289 */
+    margin-bottom: 1rem; /* mb-4 */ /* cite: 289 */
+}
+
+.modal h3 {
+    font-size: 1.5rem; /* text-2xl */ /* cite: 289 */
+    font-weight: 700; /* font-bold */ /* cite: 289 */
+    font-family: 'Playfair Display', serif; /* cite: 195 */
+}
+
+.modal button.text-gray-500 {
+    color: #6b7280; /* text-gray-500 */ /* cite: 289 */
+}
+
+.modal button.text-gray-500:hover {
+    color: #374151; /* hover:text-gray-700 */ /* cite: 289 */
+}
+
+/* Formularios dentro de los modales (Login, Registro, Checkout) */
+.modal form.space-y-4 > div {
+    margin-bottom: 1rem; /* Equivalent to space-y-4 */ /* cite: 290 */
+}
+
+.modal form label {
+    display: block; /* block */ /* cite: 290 */
+    margin-bottom: 0.25rem; /* mb-1 */ /* cite: 290 */
+}
+
+.modal form input[type="email"],
+.modal form input[type="text"] {
+    width: 100%; /* w-full */ /* cite: 290 */
+    padding: 0.5rem 1rem; /* px-4 py-2 */ /* cite: 290 */
+    border: 1px solid #d1d5db; /* border border-gray-300 */ /* cite: 290 */
+    border-radius: 0.25rem; /* rounded */ /* cite: 290 */
+    outline: none; /* focus:outline-none */ /* cite: 290 */
+}
+
+.modal form input[type="email"]:focus,
+.modal form input[type="text"]:focus {
+    border-color: var(--color-primary); /* focus:border-[#8B0000] */ /* cite: 290 */
+}
+
+.modal form .flex.justify-between.items-center {
+    display: flex; /* cite: 292 */
+    justify-content: space-between; /* justify-between */ /* cite: 292 */
+    align-items: center; /* items-center */ /* cite: 292 */
+}
+
+.modal form label.flex.items-center {
+    display: flex; /* cite: 292 */
+    align-items: center; /* items-center */ /* cite: 292 */
+}
+
+.modal form input[type="checkbox"] {
+    margin-right: 0.5rem; /* mr-2 */ /* cite: 292 */
+}
+
+.modal form a.text-[#8B0000] {
+    color: var(--color-primary); /* text-[#8B0000] */ /* cite: 293 */
+    text-decoration: none; /* Remove default underline */
+}
+
+.modal form a.text-[#8B0000]:hover {
+    text-decoration: underline; /* hover:underline */ /* cite: 293 */
+}
+
+.btn-primary {
+    background-color: var(--color-primary); /* cite: 198 */
+    color: white; /* cite: 199 */
+    transition: all 0.3s ease; /* cite: 199 */
+    width: 100%; /* w-full */ /* cite: 294 */
+    padding: 0.5rem 1rem; /* py-2 */ /* cite: 294 */
+    border-radius: 0.25rem; /* rounded */ /* cite: 294 */
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #6B0000; /* cite: 200 */
+    transform: translateY(-2px); /* cite: 200 */
+}
+
+.modal .text-center.mt-4 {
+    text-align: center; /* cite: 294 */
+    margin-top: 1rem; /* mt-4 */ /* cite: 294 */
+}
+
+.modal .text-center p {
+    margin-bottom: 0; /* Remove default paragraph margin */
+}
+
+.modal .text-center button {
+    color: var(--color-primary); /* text-[#8B0000] */ /* cite: 295 */
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-family: inherit; /* Ensure font matches surrounding text */
+    font-size: inherit; /* Ensure font size matches surrounding text */
+}
+
+.modal .text-center button:hover {
+    text-decoration: underline; /* hover:underline */ /* cite: 295 */
+}
+
+.modal .text-center .text-sm {
+    font-size: 0.875rem; /* cite: 295 */
+}
+
+.modal .text-center .text-gray-500 {
+    color: #6b7280; /* cite: 295 */
+}
+
+.modal .text-center .mt-2 {
+    margin-top: 0.5rem; /* cite: 295 */
+}

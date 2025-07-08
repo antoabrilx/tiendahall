@@ -1,0 +1,173 @@
+/* Navbar.css */
+
+/* Estilos de la barra de navegación */
+.navbar {
+    background-color: var(--color-secondary); /* bg-[#2C1A1D] */ /* cite: 214 */
+    color: white; /* text-white */ /* cite: 214 */
+    padding-top: 1rem; /* py-4 */ /* cite: 214 */
+    padding-bottom: 1rem; /* py-4 */ /* cite: 214 */
+    padding-left: 1.5rem; /* px-6 */ /* cite: 214 */
+    padding-right: 1.5rem; /* px-6 */ /* cite: 214 */
+    position: sticky; /* sticky */ /* cite: 214 */
+    top: 0; /* top-0 */ /* cite: 214 */
+    z-index: 50; /* z-50 */ /* cite: 214 */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */ /* cite: 214 */
+}
+
+.navbar .container {
+    max-width: 100%; /* mx-auto */ /* cite: 215 */
+    margin-left: auto; /* mx-auto */ /* cite: 215 */
+    margin-right: auto; /* mx-auto */ /* cite: 215 */
+    display: flex; /* flex */ /* cite: 215 */
+    flex-wrap: wrap; /* flex-wrap */ /* cite: 215 */
+    align-items: center; /* items-center */ /* cite: 215 */
+    justify-content: space-between; /* justify-between */ /* cite: 215 */
+}
+
+.navbar a.flex.items-center {
+    display: flex; /* cite: 215 */
+    align-items: center; /* cite: 215 */
+    text-decoration: none; /* Remove underline from logo link */
+    color: inherit; /* Inherit color from parent */
+}
+
+.navbar .font-['Playfair_Display'] {
+    font-family: 'Playfair Display', serif; /* cite: 215 */
+    font-size: 1.875rem; /* text-3xl */ /* cite: 215 */
+    font-weight: 700; /* font-bold */ /* cite: 215 */
+    color: var(--color-accent); /* text-[#D4AF37] */ /* cite: 215 */
+}
+
+.navbar .ml-2 {
+    margin-left: 0.5rem; /* cite: 215 */
+}
+
+.navbar .text-sm {
+    font-size: 0.875rem; /* cite: 215 */
+}
+
+.navbar .italic {
+    font-style: italic; /* cite: 215 */
+}
+
+/* Botón de menú móvil */
+.navbar .flex.md\:hidden {
+    display: flex; /* cite: 215 */
+}
+
+@media (min-width: 768px) {
+    .navbar .flex.md\:hidden {
+        display: none; /* md:hidden */ /* cite: 215 */
+    }
+}
+
+.navbar #mobile-menu-button {
+    color: white; /* text-white */ /* cite: 215 */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition-property: color; /* transition-colors */
+    transition-duration: 0.15s; /* from hover:text */
+}
+
+.navbar #mobile-menu-button:hover {
+    color: var(--color-accent); /* hover:text-[#D4AF37] */ /* cite: 215 */
+}
+
+.navbar #mobile-menu-button svg {
+    width: 1.5rem; /* w-6 */ /* cite: 216 */
+    height: 1.5rem; /* h-6 */ /* cite: 216 */
+}
+
+/* Enlaces de navegación */
+.navbar #nav-links {
+    display: none; /* hidden */ /* cite: 217 */
+    flex-direction: column; /* flex-col */ /* cite: 217 */
+    width: 100%; /* w-full */ /* cite: 217 */
+    margin-top: 1rem; /* mt-4 */ /* cite: 217 */
+}
+
+@media (min-width: 768px) {
+    .navbar #nav-links {
+        display: flex; /* md:flex */ /* cite: 217 */
+        flex-direction: row; /* md:flex-row */ /* cite: 217 */
+        width: auto; /* md:w-auto */ /* cite: 217 */
+        gap: 2rem; /* md:space-x-8 */ /* cite: 217 */
+        margin-top: 0; /* md:mt-0 */ /* cite: 217 */
+    }
+}
+
+.navbar #nav-links a {
+    padding-top: 0.5rem; /* py-2 */ /* cite: 217 */
+    padding-bottom: 0.5rem; /* py-2 */ /* cite: 217 */
+    color: white; /* Ensure links are white by default */
+    text-decoration: none;
+    transition-property: color; /* transition-colors */
+    transition-duration: 0.15s; /* from hover:text */
+}
+
+.navbar #nav-links a:hover {
+    color: var(--color-accent); /* hover:text-[#D4AF37] */ /* cite: 217 */
+}
+
+/* Íconos de usuario y carrito */
+.navbar .hidden.md\:flex.items-center.space-x-4 {
+    display: none; /* hidden */ /* cite: 218 */
+}
+
+@media (min-width: 768px) {
+    .navbar .hidden.md\:flex.items-center.space-x-4 {
+        display: flex; /* md:flex */ /* cite: 218 */
+        align-items: center; /* items-center */ /* cite: 218 */
+        gap: 1rem; /* space-x-4 */ /* cite: 218 */
+    }
+}
+
+.navbar #login-button,
+.navbar #cart-button {
+    color: white; /* text-white */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition-property: color; /* transition-colors */
+    transition-duration: 0.15s; /* from hover:text */
+}
+
+.navbar #login-button:hover,
+.navbar #cart-button:hover {
+    color: var(--color-accent); /* hover:text-[#D4AF37] */ /* cite: 218 */
+}
+
+.navbar .relative {
+    position: relative; /* cite: 219 */
+}
+
+/* Animación para el carrito */
+@keyframes cartBounce {
+    0% { transform: scale(1); } /* cite: 206 */
+    50% { transform: scale(1.2); } /* cite: 207 */
+    100% { transform: scale(1); } /* cite: 208 */
+}
+
+.cart-bounce {
+    animation: cartBounce 0.5s ease; /* cite: 209 */
+}
+
+/* Estilo para el contador del carrito */
+.cart-count {
+    position: absolute; /* cite: 210 */
+    top: -8px; /* cite: 210 */
+    right: -8px; /* cite: 210 */
+    background-color: var(--color-accent); /* cite: 210 */
+    color: var(--color-secondary); /* cite: 210 */
+    border-radius: 50%; /* cite: 210 */
+    width: 20px; /* cite: 210 */
+    height: 20px; /* cite: 210 */
+    display: flex; /* cite: 210 */
+    align-items: center; /* cite: 210 */
+    justify-content: center; /* cite: 210 */
+    font-size: 12px; /* cite: 211 */
+    font-weight: bold; /* cite: 211 */
+}

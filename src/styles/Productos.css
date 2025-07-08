@@ -1,0 +1,169 @@
+/* Productos.css */
+
+/* Estilos de la sección de Vinos */
+#vinos {
+    padding-top: 4rem; /* py-16 */ /* cite: 221 */
+    padding-bottom: 4rem; /* py-16 */ /* cite: 221 */
+    padding-left: 1.5rem; /* px-6 */ /* cite: 221 */
+    padding-right: 1.5rem; /* px-6 */ /* cite: 221 */
+}
+
+#vinos .container {
+    max-width: 100%; /* mx-auto */ /* cite: 222 */
+    margin-left: auto; /* mx-auto */ /* cite: 222 */
+    margin-right: auto; /* mx-auto */ /* cite: 222 */
+}
+
+#vinos h2 {
+    font-size: 2.25rem; /* text-4xl */ /* cite: 222 */
+    font-weight: 700; /* font-bold */ /* cite: 222 */
+    text-align: center; /* text-center */ /* cite: 222 */
+    margin-bottom: 1rem; /* mb-4 */ /* cite: 222 */
+    font-family: 'Playfair Display', serif; /* cite: 195 */
+}
+
+#vinos p.text-center {
+    text-align: center; /* cite: 222 */
+    color: #6b7280; /* text-gray-600 */ /* cite: 222 */
+    margin-bottom: 3rem; /* mb-12 */ /* cite: 222 */
+    max-width: 42rem; /* max-w-2xl */ /* cite: 222 */
+    margin-left: auto; /* mx-auto */ /* cite: 222 */
+    margin-right: auto; /* mx-auto */ /* cite: 222 */
+}
+
+/* Divisor decorativo (compartido con Contacto) */
+.divider {
+    position: relative; /* cite: 212 */
+    height: 1px; /* cite: 212 */
+    background-color: var(--color-accent); /* cite: 212 */
+    margin: 2rem 0; /* cite: 212 */
+}
+
+.divider::before {
+    content: "❦"; /* cite: 213 */
+    position: absolute; /* cite: 213 */
+    top: 50%; /* cite: 213 */
+    left: 50%; /* cite: 213 */
+    transform: translate(-50%, -50%); /* cite: 213 */
+    background-color: var(--color-background); /* cite: 213 */
+    padding: 0 1rem; /* cite: 213 */
+    color: var(--color-accent); /* cite: 213 */
+    font-size: 1.5rem; /* cite: 214 */
+}
+
+/* Grid de tarjetas de vinos */
+#vinos .grid {
+    display: grid; /* cite: 222 */
+    grid-template-columns: 1fr; /* grid-cols-1 */ /* cite: 222 */
+    gap: 2rem; /* gap-8 */ /* cite: 222 */
+    margin-top: 2rem; /* mt-8 */ /* cite: 222 */
+}
+
+@media (min-width: 768px) {
+    #vinos .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* md:grid-cols-2 */ /* cite: 222 */
+    }
+}
+
+@media (min-width: 1024px) {
+    #vinos .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)); /* lg:grid-cols-3 */ /* cite: 222 */
+    }
+}
+
+/* Tarjetas de vino individuales */
+.wine-card {
+    background-color: white; /* bg-white */ /* cite: 222 */
+    border-radius: 0.5rem; /* rounded-lg */ /* cite: 222 */
+    overflow: hidden; /* overflow-hidden */ /* cite: 222 */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */ /* cite: 222 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* cite: 196 */
+}
+
+.wine-card:hover {
+    transform: translateY(-5px); /* cite: 197 */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* cite: 198 */
+}
+
+.wine-card > div:first-child { /* Targets the image/SVG container */
+    height: 16rem; /* h-64 */ /* cite: 223 */
+    display: flex; /* flex */ /* cite: 223 */
+    align-items: center; /* items-center */ /* cite: 223 */
+    justify-content: center; /* justify-center */ /* cite: 223 */
+    padding: 1.5rem; /* p-6 */ /* cite: 223 */
+}
+
+/* Specific background colors for each wine card SVG container */
+.wine-card > div:first-child.bg-\[\#8B0000\] {
+    background-color: var(--color-primary); /* cite: 223 */
+}
+
+.wine-card > div:first-child.bg-\[\#F5F5DC\] {
+    background-color: #F5F5DC; /* cite: 229 */
+}
+
+.wine-card > div:first-child.bg-\[\#722F37\] {
+    background-color: #722F37; /* cite: 235 */
+}
+
+.wine-card > div:first-child.bg-\[\#FFC0CB\] {
+    background-color: #FFC0CB; /* cite: 241 */
+}
+
+.wine-card svg {
+    width: 8rem; /* w-32 */ /* cite: 223 */
+    height: auto; /* h-auto */ /* cite: 223 */
+}
+
+.wine-card .p-6 {
+    padding: 1.5rem; /* p-6 */ /* cite: 225 */
+}
+
+.wine-card h3 {
+    font-size: 1.5rem; /* text-2xl */ /* cite: 225 */
+    font-weight: 700; /* font-bold */ /* cite: 225 */
+    margin-bottom: 0.5rem; /* mb-2 */ /* cite: 225 */
+    font-family: 'Playfair Display', serif; /* cite: 195 */
+}
+
+.wine-card p {
+    color: #6b7280; /* text-gray-600 */ /* cite: 226 */
+    margin-bottom: 1rem; /* mb-4 */ /* cite: 226 */
+}
+
+.wine-card .flex.justify-between.items-center {
+    display: flex; /* cite: 226 */
+    justify-content: space-between; /* justify-between */ /* cite: 226 */
+    align-items: center; /* items-center */ /* cite: 226 */
+}
+
+.wine-card .text-xl {
+    font-size: 1.25rem; /* cite: 227 */
+}
+
+.wine-card .font-bold {
+    font-weight: 700; /* cite: 227 */
+}
+
+.wine-card .text-[#8B0000] {
+    color: var(--color-primary); /* cite: 227 */
+}
+
+.wine-card .add-to-cart {
+    padding: 0.5rem 1rem; /* px-4 py-2 */ /* cite: 227 */
+    border-radius: 0.25rem; /* rounded */ /* cite: 227 */
+    font-family: inherit; /* Ensure button text uses Raleway */
+}
+
+.btn-primary {
+    background-color: var(--color-primary); /* cite: 198 */
+    color: white; /* cite: 199 */
+    transition: all 0.3s ease; /* cite: 199 */
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #6B0000; /* cite: 200 */
+    transform: translateY(-2px); /* cite: 200 */
+}

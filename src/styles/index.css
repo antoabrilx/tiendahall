@@ -1,52 +1,80 @@
-/* ============================
-   ESTILOS GLOBALES: globals.css
-   ============================ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap');
+/* src/index.css (o tu archivo CSS principal) */
+
+/* Importa las directivas de Tailwind CSS */
+/*@tailwind base;
+@tailwind components;
+@tailwind utilities;*/
+
+/* Fuentes de Google (MUY IMPORTANTE) */
+/*@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap');*/
+
+/* Variables CSS Personalizadas (de code2haal.txt) */
+/*:root {
+    --color-primary: #8B0000;
+    --color-secondary: #2C1A1D;
+    --color-accent: #D4AF37;
+    --color-background: #F9F6F0;
+    --color-text: #2C1A1D;
+}*/
+
+/* Estilos de Body y Headings (de code2haal.txt) */
+/*body {
+    font-family: 'Raleway', sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Playfair Display', serif;
+}
+
+/* Si tienes otros archivos CSS de componentes que no son de Tailwind, impórtalos aquí */
+/* Por ejemplo, si tienes Carrito.css, Checkout.css, Productos.css con estilos que no son utilidades de Tailwind: */
+/* @import './styles/Carrito.css'; */
+/* @import './styles/Checkout.css'; */
+/* @import './styles/Productos.css'; */
+/*@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap');
 
 :root {
-  --color-primary: #8B0000;
-  --color-secondary: #2C1A1D;
-  --color-accent: #D4AF37;
-  --color-background: #F9F6F0;
-  --color-text: #2C1A1D;
+    --color-primary: #8B0000;
+    --color-secondary: #2C1A1D;
+    --color-accent: #D4AF37;
+    --color-background: #F9F6F0;
+    --color-text: #2C1A1D;
 }
 
 body {
-  font-family: 'Raleway', sans-serif;
-  background-color: var(--color-background);
-  color: var(--color-text);
-  margin: 0;
-  padding: 0;
+    font-family: 'Raleway', sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-text);
 }
 
-h1, h2, h3, h4 {
-  font-family: 'Playfair Display', serif;
+h1, h2, h3, h4, h5 {
+    font-family: 'Playfair Display', serif;
 }
 
 .btn-primary {
-  background-color: var(--color-primary);
-  color: white;
-  transition: all 0.3s ease;
+    background-color: var(--color-primary);
+    color: white;
+    transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
-  background-color: #6B0000;
-  transform: translateY(-2px);
+    background-color: #6B0000;
+    transform: translateY(-2px);
 }
 
-.cart-count {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background-color: var(--color-accent);
-  color: var(--color-secondary);
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: bold;
+.btn-outline {
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    transition: all 0.3s ease;
 }
+
+.btn-outline:hover {
+    background-color: var(--color-primary);
+    color: white;
+}*/
