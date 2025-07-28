@@ -171,3 +171,15 @@
     font-size: 12px; /* cite: 211 */
     font-weight: bold; /* cite: 211 */
 }
+@keyframes bounce-cart {
+    0%, 100% {
+    transform: translateY(0);
+}
+30% {
+    transform: translateY(-8px);
+}
+}
+
+.cart-bounce {
+    animation: bounce-cart 0.5s ease;
+}

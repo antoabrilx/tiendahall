@@ -1,157 +1,159 @@
 /* Contacto.css */
 
-/* Estilos generales de la sección de contacto */
+/* Estilos generales */
 #contacto {
-    padding-top: 4rem; /* py-16 */ /* cite: 258 */
-    padding-bottom: 4rem; /* py-16 */ /* cite: 258 */
-    padding-left: 1.5rem; /* px-6 */ /* cite: 258 */
-    padding-right: 1.5rem; /* px-6 */ /* cite: 258 */
+  padding-top: 4rem; /* py-16 */
+  padding-bottom: 4rem;
+  padding-left: 1.5rem; /* px-6 */
+  padding-right: 1.5rem;
+  background-color: #dddadb;
 }
 
 #contacto .container {
-    max-width: 100%; /* mx-auto */ /* cite: 258 */
-    margin-left: auto; /* mx-auto */ /* cite: 258 */
-    margin-right: auto; /* mx-auto */ /* cite: 258 */
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #contacto h2 {
-    font-size: 2.25rem; /* text-4xl */ /* cite: 258 */
-    font-weight: 700; /* font-bold */ /* cite: 258 */
-    text-align: center; /* text-center */ /* cite: 258 */
-    margin-bottom: 1rem; /* mb-4 */ /* cite: 258 */
-    font-family: 'Playfair Display', serif; /* cite: 195 */
+  font-size: 2.25rem; /* text-4xl */
+  font-weight: 700; /* font-bold */
+  text-align: center;
+  margin-bottom: 1rem;
+  font-family: 'Playfair Display', serif;
 }
 
 #contacto p {
-    text-align: center; /* text-center */ /* cite: 259 */
-    color: #6b7280; /* text-gray-600 */ /* cite: 259 */
-    margin-bottom: 3rem; /* mb-12 */ /* cite: 259 */
-    max-width: 42rem; /* max-w-2xl */ /* cite: 259 */
-    margin-left: auto; /* mx-auto */ /* cite: 259 */
-    margin-right: auto; /* mx-auto */ /* cite: 259 */
+  text-align: center;
+  color: #6b7280; /* text-gray-600 */
+  margin-bottom: 3rem;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Divisor decorativo (compartido con Productos) */
+/* Divider decorativo */
 .divider {
-    position: relative; /* cite: 212 */
-    height: 1px; /* cite: 212 */
-    background-color: var(--color-accent); /* cite: 212 */
-    margin: 2rem 0; /* cite: 212 */
+  position: relative;
+  height: 1px;
+  background-color:#8B0000;
+  margin: 2rem 0;
 }
 
 .divider::before {
-    content: "❦"; /* cite: 213 */
-    position: absolute; /* cite: 213 */
-    top: 50%; /* cite: 213 */
-    left: 50%; /* cite: 213 */
-    transform: translate(-50%, -50%); /* cite: 213 */
-    background-color: var(--color-background); /* cite: 213 */
-    padding: 0 1rem; /* cite: 213 */
-    color: var(--color-accent); /* cite: 213 */
-    font-size: 1.5rem; /* cite: 214 */
+  content: "❦";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white; /* color de fondo del sitio */
+  padding: 0 1rem;
+  color:#8B0000;
+  font-size: 1.5rem;
 }
 
-/* Grid de contacto (información y formulario) */
+/* Grid de dos columnas */
 #contacto .grid {
-    display: grid; /* cite: 259 */
-    grid-template-columns: 1fr; /* grid-cols-1 */ /* cite: 259 */
-    gap: 3rem; /* gap-12 */ /* cite: 259 */
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
 }
 
 @media (min-width: 768px) {
-    #contacto .grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr)); /* md:grid-cols-2 */ /* cite: 259 */
-    }
+  #contacto .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 #contacto .grid h3 {
-    font-size: 1.5rem; /* text-2xl */ /* cite: 260 */
-    font-weight: 700; /* font-bold */ /* cite: 260 */
-    margin-bottom: 1rem; /* mb-4 */ /* cite: 260 */
-    font-family: 'Playfair Display', serif; /* cite: 195 */
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  font-family: 'Playfair Display', serif;
 }
 
 /* Información de contacto */
 #contacto .space-y-4 > div {
-    display: flex; /* cite: 261 */
-    align-items: flex-start; /* items-start */ /* cite: 261 */
+  /*display: flex;*/
+  margin-bottom: 1rem;
+  align-items: flex-start;
 }
 
 #contacto .space-y-4 i {
-    color: var(--color-primary); /* text-[#8B0000] */ /* cite: 261 */
-    margin-top: 0.25rem; /* mt-1 */ /* cite: 261 */
-    margin-right: 1rem; /* mr-4 */ /* cite: 261 */
+  color: #8B0000;
+  margin-top: 0.25rem;
+  margin-right: 1rem;
+  font-size: 1.25rem;
 }
 
 #contacto .space-y-4 p {
-    text-align: left; /* override center text */
-    margin-bottom: 0; /* override mb-12 */
-    max-width: none; /* override max-w-2xl */
-    color: var(--color-text); /* Ensure text color is readable */
+  text-align: left;
+  margin-bottom: 0;
+  max-width: none;
+  color: #333;
 }
 
-#contacto .space-y-4 .font-medium {
-    font-weight: 500; /* cite: 264 */
-}
-
-/* Formulario de contacto */
-#contact-form.space-y-4 > div {
-    margin-bottom: 1rem; /* space-y-4 equivalent for form elements */
-}
-
+/* Formulario */
 #contact-form label {
-    display: block; /* block */ /* cite: 268 */
-    margin-bottom: 0.25rem; /* mb-1 */ /* cite: 268 */
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+  text-align: left;
 }
 
 #contact-form input[type="text"],
 #contact-form input[type="email"],
 #contact-form textarea {
-    width: 100%; /* w-full */ /* cite: 268 */
-    padding: 0.5rem 1rem; /* px-4 py-2 */ /* cite: 268 */
-    border: 1px solid #d1d5db; /* border border-gray-300 */ /* cite: 268 */
-    border-radius: 0.25rem; /* rounded */ /* cite: 268 */
-    outline: none; /* focus:outline-none */ /* cite: 268 */
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid #a5aab3;
+  border-radius: 0.25rem;
+  outline: none;
 }
 
 #contact-form input[type="text"]:focus,
 #contact-form input[type="email"]:focus,
 #contact-form textarea:focus {
-    border-color: var(--color-primary); /* focus:border-[#8B0000] */ /* cite: 268 */
+  border-color: #8B0000;
 }
 
 #contact-form textarea {
-    min-height: 5rem; /* rows="4" approximates this */ /* cite: 270 */
+  min-height: 5rem;
 }
 
-#contact-form .text-center {
-    text-align: center; /* cite: 271 */
-}
-
+/* Botón */
 .btn-primary {
-    background-color: var(--color-primary); /* cite: 198 */
-    color: white; /* cite: 199 */
-    transition: all 0.3s ease; /* cite: 199 */
-    padding: 0.5rem 1.5rem; /* px-6 py-2 */ /* cite: 271 */
-    border-radius: 0.25rem; /* rounded */ /* cite: 271 */
-    display: inline-block; /* to apply padding properly */
-    border: none;
-    cursor: pointer;
+  background-color: #8B0000;
+  color: white;
+  padding: 0.5rem 1.5rem; /* py-2 px-6 */
+  border: none;
+  border-radius: 0.25rem; /* rounded */
+  display: inline-block;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .btn-primary:hover {
-    background-color: #6B0000; /* cite: 200 */
-    transform: translateY(-2px); /* cite: 200 */
+  background-color: #6B0000;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
+
+/* Nota debajo del botón */
 #contact-form .text-sm {
-    font-size: 0.875rem; /* cite: 271 */
+  font-size: 0.875rem;
 }
 
 #contact-form .text-gray-500 {
-    color: #6b7280; /* cite: 271 */
+  color: #6b7280;
 }
 
 #contact-form .mt-2 {
-    margin-top: 0.5rem; /* cite: 271 */
+  margin-top: 0.5rem;
 }
