@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { Link } from 'react-router-dom';
 import "../styles/Navbar.css";
 
-const Navbar = () => {
-const { cart } = useCart();
+    const Navbar = ({ onCartClick }) => {
+    const { cart } = useCart();
+    const cartIconRef = useRef(null);
+    const [triggerBounce, setTriggerBounce] = useState(false);
+
+useEffect(() => {
+    if (triggerBounce && cartIconRef.current) {
+    cartIconRef.current.classList.add("cart-bounce");
+    setTimeout(() => {
+        cartIconRef.current.classList.remove("cart-bounce");
+    }, 500);
+      setTriggerBounce(false); // reinicia el rebote
+    }
+}, [triggerBounce]);
+
+useEffect(() => {
+    // Se activa cada vez que cambia el carrito
+    if (cart.length > 0) {
+    setTriggerBounce(true);
+    }
+}, [cart]);
 
 return (
     <nav className="bg-[#2C1A1D] text-white py-4 px-6 sticky top-0 z-50 shadow-md">
@@ -28,13 +47,16 @@ return (
         <Link to="/login" className="hover:text-[#D4AF37]">
             <i className="fas fa-user"></i>
         </Link>
+
         <div className="relative">
-            <Link to="/carrito" className="hover:text-[#D4AF37] relative">
+            <button onClick={onCartClick} className="hover:text-[#D4AF37] relative" ref={cartIconRef}>
             <i className="fas fa-shopping-cart"></i>
-            <span className="cart-count absolute -top-2 -right-2 bg-[#D4AF37] text-[#2C1A1D] rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
+            {cart.length > 0 && (
+                <span className="cart-count absolute -top-2 -right-2 bg-[#D4AF37] text-[#2C1A1D] rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
                 {cart.length}
-            </span>
-            </Link>
+                </span>
+            )}
+            </button>
         </div>
         </div>
     </div>

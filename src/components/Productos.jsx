@@ -1,12 +1,9 @@
-// =====================
-// COMPONENTE: Productos.jsx
-// =====================
 import React from 'react';
 import { useCart } from '../context/CartContext';
 import "../styles/Productos.css";
 
 const productos = [
-{
+    {
     id: 1,
     nombre: 'Malbec Reserva 2018',
     descripcion: 'Un vino elegante con notas de frutos rojos maduros, especias y un sutil toque de vainilla.',
@@ -39,20 +36,28 @@ return (
         <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Cada botella cuenta una historia única.</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {productos.map((vino) => (
-            <div key={vino.id} className="wine-card bg-white rounded-lg overflow-hidden shadow-lg">
-            <div className="h-64 flex items-center justify-center" style={{ backgroundColor: vino.color }}>
-                <span className="text-white font-bold text-xl">{vino.nombre}</span>
+            <div
+            key={vino.id}
+            className="wine-card bg-white rounded-lg overflow-hidden shadow-lg flex flex-col"
+            >
+            <div
+                className="h-64 flex items-center justify-center"
+                style={{ backgroundColor: vino.color }}
+            >
+                <span className="text-white font-bold text-xl text-center px-4">{vino.nombre}</span>
             </div>
-            <div className="p-6">
+            <div className="p-8 flex flex-col justify-between flex-grow">
+                <div>
                 <h3 className="text-2xl font-bold mb-2">{vino.nombre}</h3>
                 <p className="text-gray-600 mb-4">{vino.descripcion}</p>
-                <div className="flex justify-between items-center">
+                </div>
+                <div className="flex justify-between items-center mt-auto">
                 <span className="text-xl font-bold text-[#8B0000]">${vino.precio.toFixed(2)}</span>
                 <button
                     onClick={() => addToCart(vino)}
-                    className="btn-primary px-4 py-2 rounded"
+                    className="bg-[#8B0000] hover:bg-[#6B0000] text-white font-semibold text-sm px-6 py-2 rounded transition-all duration-300"
                 >
-                    Añadir al carrito
+                    Agregar al carrito
                 </button>
                 </div>
             </div>

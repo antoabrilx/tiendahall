@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react'; 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
@@ -14,13 +14,29 @@ import { CartProvider } from './context/CartContext';
 import './styles/index.css';
 
 function App() {
+  const carritoRef = useRef(); // Referencia para abrir el carrito
+  const [triggerBounce, setTriggerBounce] = useState(false); // Estado para animación
+
+  // Función para mostrar el carrito (la usás en Navbar)
+  const handleCartClick = () => {
+    if (carritoRef.current) {
+      carritoRef.current.openCart();
+    }
+  };
+
+  // Función que se ejecuta cada vez que se agrega algo al carrito
+  const handleAddToCart = () => {
+    setTriggerBounce(true); // Activa la animación
+    setTimeout(() => setTriggerBounce(false), 500); // La reinicia después de 0.5s
+  };
+
   return (
     <CartProvider>
       <BrowserRouter>
-        <Navbar />
+        {/* Le pasamos ambas props al navbar */}
+        <Navbar onCartClick={handleCartClick} triggerBounce={triggerBounce} />
 
         <Routes>
-          {/* Página principal con scroll interno */}
           <Route path="/" element={
             <>
               <Hero />
@@ -28,17 +44,16 @@ function App() {
               <Footer />
             </>
           } />
-
-          {/* Páginas con rutas independientes */}
-          <Route path="/productos" element={<Productos />} />
+          <Route path="/productos" element={<Productos onAddToCart={handleAddToCart} />} />
           <Route path="/contacto" element={<Contacto />} />
-          <Route path="/carrito" element={<Carrito />} />
           <Route path="/login" element={<Login />} />
           <Route path="/ir-inicio" element={<ScrollToSection sectionId="inicio" />} />
           <Route path="/ir-nosotros" element={<ScrollToSection sectionId="nosotros" />} />
-          {/* Página 404 */}
           <Route path="*" element={<h2 style={{ padding: "2rem" }}>Página no encontrada 😓</h2>} />
         </Routes>
+
+        {/* Carrito controlado con ref */}
+        <Carrito ref={carritoRef} />
       </BrowserRouter>
     </CartProvider>
   );

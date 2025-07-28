@@ -1,12 +1,15 @@
-// =====================
-// COMPONENTE: Carrito.jsx
-// =====================
-import React, { useState } from 'react';
+// Carrito.jsx
+import React, { useState, useImperativeHandle, forwardRef } from 'react';
 import { useCart } from '../context/CartContext';
 
-const Carrito = () => {
+const Carrito = forwardRef((props, ref) => {
 const { cart, removeFromCart, clearCart, total } = useCart();
 const [visible, setVisible] = useState(false);
+
+  // Exponer método para abrir desde afuera
+useImperativeHandle(ref, () => ({
+    openCart: () => setVisible(true)
+}));
 
 const handleCheckout = () => {
     alert('Simulación de pago exitosa. Gracias por tu compra!');
@@ -16,10 +19,6 @@ const handleCheckout = () => {
 
 return (
     <>
-    <div onClick={() => setVisible(true)} className="fixed top-20 right-6 z-50 cursor-pointer bg-[#8B0000] text-white px-4 py-2 rounded shadow-lg">
-        🛒 Carrito ({cart.length})
-    </div>
-
     {visible && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
         <div className="bg-white rounded-lg p-6 max-w-md w-full shadow-lg relative">
@@ -53,6 +52,6 @@ return (
     )}
     </>
 );
-};
+});
 
 export default Carrito;
