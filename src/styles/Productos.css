@@ -146,8 +146,8 @@
     font-weight: 700; /* cite: 227 */
 }
 
-.wine-card .text-[#8B0000] {
-    color: var(--color-primary); /* cite: 227 */
+.wine-card .text {
+    color: #8B0000; /* cite: 227 */
 }
 
 .wine-card .add-to-cart {
