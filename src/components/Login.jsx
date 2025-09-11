@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import "../styles/Login.css";
 import { auth, db } from "../firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 
 const Login = ({ onLogin }) => {
@@ -38,14 +41,12 @@ const Login = ({ onLogin }) => {
           const userData = userDoc.data();
           console.log("Rol:", userData.role);
 
-          // Pasamos los datos al componente padre
           if (onLogin) {
             onLogin({ uid, email: userData.email, role: userData.role });
           }
         } else {
           setError("No se encontró información del usuario en la base de datos.");
         }
-
       } else {
         // Registrar nuevo usuario
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -55,7 +56,7 @@ const Login = ({ onLogin }) => {
         await setDoc(doc(db, "usuarios", uid), {
           nombre: name,
           email,
-          role: "user" // por defecto usuario común
+          role: "user", // por defecto usuario común
         });
 
         console.log("Usuario registrado:", userCredential.user);
