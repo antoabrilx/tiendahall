@@ -4,6 +4,7 @@
 import React from 'react';
 import "../styles/Hero.css"
 import { Link } from 'react-router-dom';
+import fondovinos2 from "../img/fondoinicio2.png";
 
 
 const Hero = () => {

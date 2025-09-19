@@ -1,5 +1,7 @@
-import React, { useRef, useState } from 'react'; 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+// src/App.jsx
+import React, { useRef, useState } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { MotionConfig, AnimatePresence } from "framer-motion";
 
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -8,55 +10,112 @@ import Contacto from './components/Contacto';
 import Footer from './components/Footer';
 import Carrito from './components/Carrito';
 import Login from './components/Login';
-import Productos from './components/Productos';
+import Productos from './components/productos/Productos';
 import ScrollToSection from './components/ScrollToSection';
 import { CartProvider } from './context/CartContext';
+import PageFade from './styles/PageFade';
 import './styles/index.css';
+import AdminProductos from './pages/AdminProductos';
 
-function App() {
-  const carritoRef = useRef(); // Referencia para abrir el carrito
-  const [triggerBounce, setTriggerBounce] = useState(false); // Estado para animación
+function AnimatedRoutes({ handleAddToCart }) {
+  const location = useLocation();
 
-  // Función para mostrar el carrito (la usás en Navbar)
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route
+          path="/"
+          element={
+            <PageFade>
+              <Hero />
+              <Nosotros />
+              <Footer />
+            </PageFade>
+          }
+        />
+        <Route
+          path="/productos"
+          element={
+            <PageFade>
+              <Productos onAddToCart={handleAddToCart} />
+            </PageFade>
+          }
+        />
+        <Route
+          path="/contacto"
+          element={
+            <PageFade>
+              <Contacto />
+            </PageFade>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <PageFade>
+              <Login />
+            </PageFade>
+          }
+        />
+        <Route
+          path="/ir-inicio"
+          element={
+            <PageFade>
+              <ScrollToSection sectionId="inicio" />
+            </PageFade>
+          }
+        />
+        <Route
+          path="/ir-nosotros"
+          element={
+            <PageFade>
+              <ScrollToSection sectionId="nosotros" />
+            </PageFade>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <PageFade>
+              <h2 style={{ padding: "2rem" }}>Página no encontrada 😓</h2>
+            </PageFade>
+          }
+        />
+        <Route
+          path="/admin/productos"
+          element={
+            <PageFade>
+              <AdminProductos />
+            </PageFade>
+  }
+/>
+      </Routes>
+    </AnimatePresence>
+  );
+}
+
+export default function App() {
+  const carritoRef = useRef();
+  const [triggerBounce, setTriggerBounce] = useState(false);
+
   const handleCartClick = () => {
-    if (carritoRef.current) {
-      carritoRef.current.openCart();
-    }
+    if (carritoRef.current) carritoRef.current.openCart();
   };
 
-  // Función que se ejecuta cada vez que se agrega algo al carrito
   const handleAddToCart = () => {
-    setTriggerBounce(true); // Activa la animación
-    setTimeout(() => setTriggerBounce(false), 500); // La reinicia después de 0.5s
+    setTriggerBounce(true);
+    setTimeout(() => setTriggerBounce(false), 500);
   };
 
   return (
     <CartProvider>
-      <BrowserRouter>
-        {/* Le pasamos ambas props al navbar */}
-        <Navbar onCartClick={handleCartClick} triggerBounce={triggerBounce} />
-
-        <Routes>
-          <Route path="/" element={
-            <>
-              <Hero />
-              <Nosotros />
-              <Footer />
-            </>
-          } />
-          <Route path="/productos" element={<Productos onAddToCart={handleAddToCart} />} />
-          <Route path="/contacto" element={<Contacto />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/ir-inicio" element={<ScrollToSection sectionId="inicio" />} />
-          <Route path="/ir-nosotros" element={<ScrollToSection sectionId="nosotros" />} />
-          <Route path="*" element={<h2 style={{ padding: "2rem" }}>Página no encontrada 😓</h2>} />
-        </Routes>
-
-        {/* Carrito controlado con ref */}
-        <Carrito ref={carritoRef} />
-      </BrowserRouter>
+      <MotionConfig transition={{ type: "spring", damping: 25, stiffness: 250 }}>
+        <BrowserRouter>
+          <Navbar onCartClick={handleCartClick} triggerBounce={triggerBounce} />
+          <AnimatedRoutes handleAddToCart={handleAddToCart} />
+          <Carrito ref={carritoRef} />
+        </BrowserRouter>
+      </MotionConfig>
     </CartProvider>
   );
 }
-
-export default App;

@@ -1,11 +1,13 @@
 // Productos.jsx
 import React, { useState, useEffect } from "react";
-import { useCart } from "../context/CartContext";
-import "../styles/Productos.css";
+import { useCart } from "../../context/CartContext";
+import "./Productos.css";
 
 // Firebase
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../../firebase";
+import { useProductos } from "../../hooks/useProductos";
+
 
 const Productos = () => {
   const { addToCart } = useCart();
