@@ -16,6 +16,8 @@ import { CartProvider } from './context/CartContext';
 import PageFade from './styles/PageFade';
 import './styles/index.css';
 import AdminProductos from './pages/AdminProductos';
+import PrivateRoute from "./components/PrivateRoute";
+
 
 function AnimatedRoutes({ handleAddToCart }) {
   const location = useLocation();
@@ -84,9 +86,9 @@ function AnimatedRoutes({ handleAddToCart }) {
         <Route
           path="/admin/productos"
           element={
-            <PageFade>
-              <AdminProductos />
-            </PageFade>
+          <PrivateRoute>
+            <AdminProductos />
+          </PrivateRoute>
   }
 />
       </Routes>

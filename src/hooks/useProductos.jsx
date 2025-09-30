@@ -1,8 +1,7 @@
-// src/hooks/useProductos.js
 import { useEffect, useMemo, useState } from "react";
 import {
   collection, addDoc, updateDoc, deleteDoc, doc,
-  onSnapshot, query, orderBy, serverTimestamp
+  onSnapshot, /* orderBy, */ serverTimestamp, query
 } from "firebase/firestore";
 import { db } from "../firebase";
 
@@ -11,10 +10,13 @@ export function useProductos() {
   const colRef = useMemo(() => collection(db, "productos"), []);
 
   useEffect(() => {
-    const q = query(colRef, orderBy("createdAt", "desc"));
+    // const q = query(colRef, orderBy("createdAt", "desc"));
+    const q = query(colRef);
     const unsub = onSnapshot(q, (snap) => {
       const list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
       setProductos(list);
+    }, (err) => {
+      console.error("[useProductos] error:", err);
     });
     return () => unsub();
   }, [colRef]);
@@ -38,18 +40,21 @@ export function useProductos() {
   return { productos, createProducto, updateProductoById, deleteProductoById };
 }
 
-// Normaliza tipos y timestamps
 function normalizeProducto(data, isCreate) {
-  const n = Number(data.precio ?? 0);
-  const s = Number.isFinite(Number(data.stock)) ? Number(data.stock) : 0;
+  const precio = Number(data.precio ?? 0);
+  const stock = Number.isFinite(Number(data.stock)) ? Number(data.stock) : 0;
+  const year = data.year ? Number(data.year) : null;
 
   const base = {
     nombre: (data.nombre ?? "").trim(),
     descripcion: (data.descripcion ?? "").trim(),
-    categoria: (data.categoria ?? "").trim(),
-    imagenUrl: (data.imagenUrl ?? "").trim(),
-    precio: Number.isFinite(n) ? n : 0,
-    stock: s,
+    categoria: (data.categoria ?? "").trim(),   // si la usás
+    color: (data.color ?? "").trim(),           // tinto/blanco/rosado/espumoso
+    year,                                       // ej 2019
+    region: (data.region ?? "").trim(),         // ej Mendoza
+    imagenUrl: (data.imagenUrl ?? "").trim(),   // URL de imagen
+    precio: Number.isFinite(precio) ? precio : 0,
+    stock,
     updatedAt: serverTimestamp(),
   };
   if (isCreate) base.createdAt = serverTimestamp();

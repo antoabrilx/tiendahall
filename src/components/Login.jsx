@@ -1,72 +1,40 @@
+// src/components/Login.jsx
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
-import { auth, db } from "../firebase";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { useAuth } from '../context/AuthContext';
 
-const Login = ({ onLogin }) => {
-  const [isLogin, setIsLogin] = useState(true);
+export default function Login() {
+  const { login, register } = useAuth();
+  const navigate = useNavigate();
+
+  const [mode, setMode] = useState("login"); // "login" | "register"
+  const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");
 
-  const toggleForm = () => {
-    setIsLogin(!isLogin);
+  const toggleMode = () => {
+    setMode((m) => (m === "login" ? "register" : "login"));
     setError("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
-    if (!isLogin && password !== confirmPassword) {
-      setError("Las contraseñas no coinciden");
-      return;
-    }
-
     try {
-      if (isLogin) {
-        // Iniciar sesión
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const uid = userCredential.user.uid;
-
-        // Leer el rol del usuario desde Firestore
-        const userDoc = await getDoc(doc(db, "usuarios", uid));
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          console.log("Rol:", userData.role);
-
-          if (onLogin) {
-            onLogin({ uid, email: userData.email, role: userData.role });
-          }
-        } else {
-          setError("No se encontró información del usuario en la base de datos.");
-        }
+      if (mode === "login") {
+        await login(email, password);
       } else {
-        // Registrar nuevo usuario
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const uid = userCredential.user.uid;
-
-        // Guardar datos adicionales en Firestore
-        await setDoc(doc(db, "usuarios", uid), {
-          nombre: name,
-          email,
-          role: "user", // por defecto usuario común
-        });
-
-        console.log("Usuario registrado:", userCredential.user);
-
-        if (onLogin) {
-          onLogin({ uid, email, role: "user" });
+        if (password !== confirm) {
+          setError("Las contraseñas no coinciden");
+          return;
         }
+        await register(email, password, displayName);
       }
+      navigate("/admin/productos", { replace: true });
     } catch (err) {
-      console.error("Error de autenticación:", err);
       setError(err.message);
     }
   };
@@ -75,56 +43,60 @@ const Login = ({ onLogin }) => {
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold mb-4 text-center">
-          {isLogin ? "Iniciar Sesión" : "Crear Cuenta"}
+          {mode === "login" ? "Iniciar sesión" : "Crear cuenta"}
         </h2>
 
         {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {!isLogin && (
+          {mode === "register" && (
             <div>
-              <label htmlFor="name" className="block mb-1">Nombre Completo</label>
+              <label className="block mb-1">Nombre a mostrar</label>
               <input
                 type="text"
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={displayName}
+                onChange={(e) => setDisplayName(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#8B0000]"
+                placeholder="Ej: Emiliano"
+                required
               />
             </div>
           )}
 
           <div>
-            <label htmlFor="email" className="block mb-1">Email</label>
+            <label className="block mb-1">Email</label>
             <input
               type="email"
-              id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#8B0000]"
+              placeholder="tuemail@dominio.com"
+              required
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block mb-1">Contraseña</label>
+            <label className="block mb-1">Contraseña</label>
             <input
               type="password"
-              id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#8B0000]"
+              placeholder="********"
+              required
             />
           </div>
 
-          {!isLogin && (
+          {mode === "register" && (
             <div>
-              <label htmlFor="confirm-password" className="block mb-1">Confirmar Contraseña</label>
+              <label className="block mb-1">Confirmar contraseña</label>
               <input
                 type="password"
-                id="confirm-password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                value={confirm}
+                onChange={(e) => setConfirm(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#8B0000]"
+                placeholder="********"
+                required
               />
             </div>
           )}
@@ -133,24 +105,17 @@ const Login = ({ onLogin }) => {
             type="submit"
             className="btn-primary w-full py-2 rounded bg-[#8B0000] text-white hover:bg-[#6B0000] transition"
           >
-            {isLogin ? "Iniciar Sesión" : "Crear Cuenta"}
+            {mode === "login" ? "Ingresar" : "Registrarme"}
           </button>
         </form>
 
         <div className="text-center mt-4">
-          <p>
-            {isLogin ? "¿No tienes una cuenta?" : "¿Ya tienes una cuenta?"}{" "}
-            <button
-              onClick={toggleForm}
-              className="text-[#8B0000] hover:underline"
-            >
-              {isLogin ? "Regístrate" : "Iniciar Sesión"}
-            </button>
-          </p>
+          {mode === "login" ? "¿No tenés cuenta?" : "¿Ya tenés cuenta?"}{" "}
+          <button onClick={toggleMode} className="text-[#8B0000] hover:underline">
+            {mode === "login" ? "Registrate aquí" : "Iniciá sesión"}
+          </button>
         </div>
       </div>
     </div>
   );
-};
-
-export default Login;
+}
