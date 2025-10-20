@@ -1,0 +1,128 @@
+/* Footer.css */
+
+/* Estilos generales del footer */
+footer {
+    background-color: var(--color-secondary); /* bg-[#2C1A1D] */ /* cite: 272 */
+    color: white; /* text-white */ /* cite: 272 */
+    padding-top: 3rem; /* py-12 */ /* cite: 272 */
+    padding-bottom: 3rem; /* py-12 */ /* cite: 272 */
+    padding-left: 1.5rem; /* px-6 */ /* cite: 272 */
+    padding-right: 1.5rem; /* px-6 */ /* cite: 272 */
+}
+
+footer .container {
+    max-width: 100%; /* mx-auto */ /* cite: 272 */
+    margin-left: auto; /* mx-auto */ /* cite: 272 */
+    margin-right: auto; /* mx-auto */ /* cite: 272 */
+}
+
+/* Grid del footer */
+footer .grid {
+    display: grid; /* cite: 273 */
+    grid-template-columns: 1fr; /* grid-cols-1 */ /* cite: 273 */
+    gap: 2rem; /* gap-8 */ /* cite: 273 */
+}
+
+@media (min-width: 768px) {
+    footer .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)); /* md:grid-cols-3 */ /* cite: 273 */
+    }
+}
+
+footer .grid > div h3 {
+    font-size: 1.25rem; /* text-xl */ /* cite: 273 */
+    font-weight: 700; /* font-bold */ /* cite: 273 */
+    margin-bottom: 1rem; /* mb-4 */ /* cite: 273 */
+    font-family: 'Playfair Display', serif; /* cite: 195 */
+}
+
+footer .grid > div p {
+    margin-bottom: 1rem; /* mb-4 */ /* cite: 273 */
+}
+
+/* Íconos de redes sociales */
+footer .flex.space-x-4 {
+    display: flex; /* cite: 274 */
+    gap: 1rem; /* space-x-4 */ /* cite: 274 */
+}
+
+footer .flex.space-x-4 a {
+    color: white; /* text-white */ /* cite: 274 */
+    transition-property: color; /* transition-colors */
+    transition-duration: 0.15s; /* from hover:text */
+}
+
+footer .flex.space-x-4 a:hover {
+    color: var(--color-accent); /* hover:text-[#D4AF37] */ /* cite: 274 */
+}
+
+/* Enlaces rápidos */
+footer ul.space-y-2 {
+    list-style: none; /* Remove default list style */
+    padding: 0;
+    margin: 0;
+}
+
+footer ul.space-y-2 li {
+    margin-bottom: 0.5rem; /* space-y-2 */ /* cite: 276 */
+}
+
+footer ul.space-y-2 a {
+    color: white; /* Ensure links are white by default */
+    text-decoration: none;
+    transition-property: color; /* transition-colors */
+    transition-duration: 0.15s; /* from hover:text */
+}
+
+footer ul.space-y-2 a:hover {
+    color: var(--color-accent); /* hover:text-[#D4AF37] */ /* cite: 276 */
+}
+
+/* Newsletter */
+footer form.flex {
+    display: flex; /* cite: 278 */
+}
+
+footer form input[type="email"] {
+    padding: 0.5rem 1rem; /* px-4 py-2 */ /* cite: 278 */
+    width: 100%; /* w-full */ /* cite: 278 */
+    border-top-left-radius: 0.25rem; /* rounded-l */ /* cite: 278 */
+    border-bottom-left-radius: 0.25rem; /* rounded-l */ /* cite: 278 */
+    outline: none; /* focus:outline-none */ /* cite: 278 */
+    color: #1f2937; /* text-gray-800 */ /* cite: 278 */
+    border: none; /* Remove default input border */
+}
+
+footer form button[type="submit"] {
+    background-color: var(--color-primary); /* bg-[#8B0000] */ /* cite: 279 */
+    padding: 0.5rem 1rem; /* px-4 py-2 */ /* cite: 279 */
+    border-top-right-radius: 0.25rem; /* rounded-r */ /* cite: 279 */
+    border-bottom-right-radius: 0.25rem; /* rounded-r */ /* cite: 279 */
+    color: white; /* Default text color for button */
+    border: none;
+    cursor: pointer;
+    transition-property: background-color; /* from hover:bg */
+    transition-duration: 0.15s;
+}
+
+footer form button[type="submit"]:hover {
+    background-color: #6B0000; /* hover:bg-[#6B0000] */ /* cite: 279 */
+}
+
+/* Pie de página final */
+footer .border-t {
+    border-top-width: 1px; /* cite: 280 */
+    border-color: #374151; /* border-gray-700 */ /* cite: 280 */
+    margin-top: 2rem; /* mt-8 */ /* cite: 280 */
+    padding-top: 2rem; /* pt-8 */ /* cite: 280 */
+    text-align: center; /* text-center */ /* cite: 280 */
+    font-size: 0.875rem; /* text-sm */ /* cite: 280 */
+}
+
+footer .border-t p {
+    margin-bottom: 0; /* Override default paragraph margin */
+}
+
+footer .border-t .mt-2 {
+    margin-top: 0.5rem; /* cite: 282 */
+}

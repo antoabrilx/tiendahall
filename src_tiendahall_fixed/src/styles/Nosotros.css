@@ -1,0 +1,118 @@
+/* Nosotros.css */
+
+/* Estilos de la sección Nosotros */
+#nosotros {
+    padding-top: 4rem; /* py-16 */ /* cite: 246 */
+    padding-bottom: 4rem; /* py-16 */ /* cite: 246 */
+    padding-left: 1.5rem; /* px-6 */ /* cite: 246 */
+    padding-right: 1.5rem; /* px-6 */ /* cite: 246 */
+    background-color: var(#2C1A1D
+); /* bg-[#2C1A1D] */ /* cite: 246 */
+    color: white; /* text-white */ /* cite: 246 */
+}
+
+#nosotros .container {
+    max-width: 100%; /* mx-auto */ /* cite: 247 */
+    margin-left: auto; /* mx-auto */ /* cite: 247 */
+    margin-right: auto; /* mx-auto */ /* cite: 247 */
+}
+
+#nosotros h2 {
+    font-size: 2.25rem; /* text-4xl */ /* cite: 247 */
+    font-weight: 700; /* font-bold */ /* cite: 247 */
+    text-align: center; /* text-center */ /* cite: 247 */
+    margin-bottom: 1rem; /* mb-4 */ /* cite: 247 */
+    font-family: 'Playfair Display', serif; /* cite: 195 */
+}
+
+#nosotros p.text-center {
+    text-align: center; /* cite: 247 */
+    margin-bottom: 3rem; /* mb-12 */ /* cite: 247 */
+    max-width: 42rem; /* max-w-2xl */ /* cite: 247 */
+    margin-left: auto; /* mx-auto */ /* cite: 247 */
+    margin-right: auto; /* mx-auto */ /* cite: 247 */
+}
+
+/* Grid de contenido */
+#nosotros .grid {
+    display: grid; /* cite: 247 */
+    grid-template-columns: 1fr; /* grid-cols-1 */ /* cite: 247 */
+    gap: 3rem; /* gap-12 */ /* cite: 247 */
+    align-items: center; /* items-center */ /* cite: 247 */
+}
+
+@media (min-width: 768px) {
+    #nosotros .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* md:grid-cols-2 */ /* cite: 247 */
+    }
+}
+
+/* Fondo de madera */
+.wood-bg {
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h100v100H0z' fill='%23402218' fill-opacity='0.9'/%3E%3Cpath d='M0 0h50v50H0z M50 50h50v50H50z' fill='%23331A12' fill-opacity='0.9'/%3E%3C/svg%3E"); /* cite: 202 */
+    background-repeat: repeat; /* cite: 203 */
+    padding: 1.5rem; /* p-6 */ /* cite: 248 */
+    border-radius: 0.5rem; /* rounded-lg */ /* cite: 248 */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */ /* cite: 248 */
+}
+
+/*.wood-bg .bg-[#F9F6F0] {
+    background-color: var(--color-background); 
+    padding: 2rem; 
+    border-radius: 0.25rem; 
+}*/
+.fondo-madera-interna {
+    background-color: #F9F6F0;
+    padding: 2rem;
+    border-radius: 0.25rem;
+}
+
+.wood-bg svg {
+    width: 100%; /* w-full */ /* cite: 248 */
+    height: auto; /* h-auto */ /* cite: 248 */
+}
+
+.wood-bg svg text {
+    font-family: 'Playfair Display', serif; /* cite: 250 */
+    font-size: 24px; /* cite: 250 */
+    text-anchor: middle; /* cite: 250 */
+    fill: var(--color-secondary); /* cite: 250 */
+}
+
+/* Contenido de texto "Nuestra Historia" */
+#nosotros .grid > div h3 {
+    font-size: 1.5rem; /* text-2xl */ /* cite: 252 */
+    font-weight: 700; /* font-bold */ /* cite: 252 */
+    margin-bottom: 1rem; /* mb-4 */ /* cite: 252 */
+    color: var(#D4AF37); /* text-[#D4AF37] */ /* cite: 252 */
+    font-family: 'Playfair Display', serif; /* cite: 195 */
+}
+
+#nosotros .grid > div p {
+    margin-bottom: 1rem; /* mb-4 */ /* cite: 253 */
+}
+
+#nosotros .grid > div p:last-of-type {
+    margin-bottom: 1.5rem; /* mb-6 */ /* cite: 253 */
+}
+
+/* Estadísticas */
+#nosotros .flex.space-x-4 {
+    display: flex; /* cite: 254 */
+    gap: 1rem; /* space-x-4 */ /* cite: 254 */
+}
+
+#nosotros .flex.space-x-4 > div {
+    text-align: center; /* text-center */ /* cite: 254 */
+}
+
+#nosotros .flex.space-x-4 span.block {
+    display: block; /* cite: 254 */
+    font-size: 1.875rem; /* text-3xl */ /* cite: 254 */
+    font-weight: 700; /* font-bold */ /* cite: 254 */
+    color: var(#D4AF37); /* text-[#D4AF37] */ /* cite: 254 */
+}
+
+#nosotros .flex.space-x-4 span.text-sm {
+    font-size: 0.875rem; /* cite: 254 */
+}

@@ -1,4 +1,3 @@
-// src/hooks/useProductos.js
 import { useEffect, useMemo, useState } from "react";
 import {
   collection, addDoc, updateDoc, deleteDoc, doc,
@@ -17,7 +16,8 @@ export function useProductos() {
       (snap) => {
         const list = snap.docs.map((d) => {
           const data = d.data();
-          const { id: _ignore, ...rest } = data || {}; // nunca pisar doc.id
+          // ⚠️ Nunca dejamos que un campo "id" del documento pise el doc.id real
+          const { id: _ignore, ...rest } = data || {};
           return { id: d.id, ...rest };
         });
         setProductos(list);
