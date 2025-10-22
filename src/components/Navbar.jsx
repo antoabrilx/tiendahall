@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import useUserDoc from "../hooks/useUserDoc";
 import "../styles/Navbar.css";
+import { Link as ScrollLink } from "react-scroll";
+
 
 const Navbar = ({ onCartClick, triggerBounce: externalBounce }) => {
   const { cart } = useCart();
@@ -81,7 +83,16 @@ const Navbar = ({ onCartClick, triggerBounce: externalBounce }) => {
         {/* Navegación */}
         <div className="hidden md:flex flex-col md:flex-row w-full md:w-auto md:space-x-8 mt-4 md:mt-0">
           <Link to="/ir-inicio" className="py-2 hover:text-[#D4AF37] transition-colors">Inicio</Link>
-          <Link to="/ir-nosotros" className="py-2 hover:text-[#D4AF37] transition-colors">Nosotros</Link>
+          <ScrollLink
+          to="nosotros"   // el id del <section>
+          smooth={true}
+          duration={600}
+          offset={-80}    // ajustá si tu navbar tapa parte del texto
+          className="py-2 hover:text-[#D4AF37] transition-colors cursor-pointer"
+          >
+          Nosotros
+          </ScrollLink>
+
           <Link to="/productos" className="py-2 hover:text-[#D4AF37] transition-colors">Nuestros Vinos</Link>
           <Link to="/contacto" className="py-2 hover:text-[#D4AF37] transition-colors">Contacto</Link>
         </div>
