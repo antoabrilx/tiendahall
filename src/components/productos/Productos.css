@@ -86,13 +86,16 @@
     box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* cite: 198 */
 }
 
-.wine-card > div:first-child { /* Targets the image/SVG container */
-    height: 16rem; /* h-64 */ /* cite: 223 */
-    display: flex; /* flex */ /* cite: 223 */
-    align-items: center; /* items-center */ /* cite: 223 */
-    justify-content: center; /* justify-center */ /* cite: 223 */
-    padding: 1.5rem; /* p-6 */ /* cite: 223 */
+.wine-card > div:first-child {
+    height: 16rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0; /* quitamos el padding que deformaba las imágenes */
+    overflow: hidden; /* evita que se salgan */
+    background-color: #fff; /* opcional, podés cambiarlo */
 }
+
 
 /* Specific background colors for each wine card SVG container */
 .wine-card > div:first-child.bg-\[\#8B0000\] {
@@ -167,4 +170,21 @@
 .btn-primary:hover {
     background-color: #6B0000; /* cite: 200 */
     transform: translateY(-2px); /* cite: 200 */
+}
+/* Ajuste para imágenes de vinos */
+.wine-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* la imagen se ve completa sin recortarse */
+    border-radius: 8px;
+    background-color: #f3f3f3; /* color de fondo si sobra espacio */
+}
+
+/* Ajuste de imágenes de productos */
+.wine-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* muestra la imagen completa sin deformarla */
+    border-radius: 0;
+    display: block;
 }
