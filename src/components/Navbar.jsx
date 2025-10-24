@@ -1,17 +1,18 @@
 // src/components/Navbar.jsx
 import React, { useEffect, useRef, useState } from "react";
 import { useCart } from "../context/CartContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import useUserDoc from "../hooks/useUserDoc";
 import "../styles/Navbar.css";
-import { Link as ScrollLink } from "react-scroll";
+import { scroller } from "react-scroll";
 
 const Navbar = ({ onCartClick, triggerBounce: externalBounce }) => {
   const { cart } = useCart();
   const { user, logout } = useAuth();
   const { userDoc } = useUserDoc(); // para saber si es admin
   const navigate = useNavigate();
+  const location = useLocation();
 
   const cartIconRef = useRef(null);
   const [triggerBounce, setTriggerBounce] = useState(false);
@@ -74,6 +75,36 @@ const Navbar = ({ onCartClick, triggerBounce: externalBounce }) => {
     navigate("/", { replace: true });
   };
 
+  // 🔹 Función para ir a la sección “Nosotros”
+  const goNosotros = () => {
+    if (location.pathname === "/") {
+      // Si ya estás en inicio → solo hace scroll
+      scroller.scrollTo("nosotros", {
+        //smooth: true,
+        duration: 300,
+        offset: -80,
+      });
+    } else {
+      // Si estás en otra ruta → navega a inicio y guarda la intención
+      localStorage.setItem("scrollToNosotros", "true");
+      navigate("/");
+    }
+  };
+
+  // 🔹 Al cargar la página, si venís de otra sección, hace scroll automáticamente
+  useEffect(() => {
+    if (location.pathname === "/" && localStorage.getItem("scrollToNosotros") === "true") {
+      setTimeout(() => {
+        scroller.scrollTo("nosotros", {
+          smooth: true,
+          duration: 600,
+          offset: -80,
+        });
+        localStorage.removeItem("scrollToNosotros");
+      }, 500);
+    }
+  }, [location.pathname]);
+
   return (
     <nav className="bg-[#2C1A1D] text-white py-4 px-6 sticky top-0 z-50 shadow-md">
       <div className="container mx-auto flex flex-wrap items-center justify-between">
@@ -89,15 +120,12 @@ const Navbar = ({ onCartClick, triggerBounce: externalBounce }) => {
             Inicio
           </Link>
 
-          <ScrollLink
-            to="nosotros"
-            smooth={true}
-            duration={600}
-            offset={-80}
-            className="py-2 hover:text-[#D4AF37] transition-colors cursor-pointer"
+          <button
+            onClick={goNosotros}
+            className="py-2 hover:text-[#D4AF37] transition-colors cursor-pointer bg-transparent border-none"
           >
             Nosotros
-          </ScrollLink>
+          </button>
 
           <Link to="/productos" className="py-2 hover:text-[#D4AF37] transition-colors">
             Nuestros Vinos
@@ -137,7 +165,6 @@ const Navbar = ({ onCartClick, triggerBounce: externalBounce }) => {
                     Mi perfil
                   </button>
 
-                  {/* Opción solo visible para admin */}
                   {userDoc?.role === "admin" && (
                     <>
                       <button
