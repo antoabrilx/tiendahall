@@ -1,129 +1,71 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "../firebase";
+// src/context/AuthContext.jsx
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { auth, db } from "../firebase";
 import {
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
   updateProfile,
 } from "firebase/auth";
-import { db } from "../firebase";
-import { doc, getDoc, setDoc, serverTimestamp } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 
-const AuthContext = createContext(null);
+const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
+export const useAuth = () => useContext(AuthContext);
+
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [initializing, setInitializing] = useState(true);
+  const [userData, setUserData] = useState(null); // datos de Firestore (rol)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, async (u) => {
-      setUser(u ?? null);
-      setInitializing(false);
-      if (u) {
-        // Asegurar que exista su doc en "usuarios/{uid}" (si lo creaste en consola)
-        await ensureUserDoc(u);
+    const unsub = onAuthStateChanged(auth, async (currentUser) => {
+      setUser(currentUser);
+      if (currentUser) {
+        const ref = doc(db, "usuarios", currentUser.uid);
+        const snap = await getDoc(ref);
+        if (snap.exists()) {
+          setUserData(snap.data());
+        }
+      } else {
+        setUserData(null);
       }
+      setLoading(false);
     });
-    return () => unsub();
+    return unsub;
   }, []);
 
-  const ensureUserDoc = async (u) => {
-    try {
-      const ref = doc(db, "usuarios", u.uid);
-      const snap = await getDoc(ref);
-      if (!snap.exists()) {
-        await setDoc(ref, {
-          email: u.email || "",
-          displayName: u.displayName || "",
-          role: "user",                   // por defecto NO admin
-          createdAt: serverTimestamp(),
-          updatedAt: serverTimestamp(),
-        });
-      }
-    } catch (e) {
-      console.error("[AuthContext] ensureUserDoc error:", e);
-    }
-  };
-
-  const login = (email, password) => signInWithEmailAndPassword(auth, email, password);
-
+  // Registrar usuario
   const register = async (email, password, displayName) => {
     const cred = await createUserWithEmailAndPassword(auth, email, password);
-    if (displayName) await updateProfile(cred.user, { displayName });
-    // crear doc de usuario con rol "user"
-    const ref = doc(db, "usuarios", cred.user.uid);
-    await setDoc(ref, {
+    await updateProfile(cred.user, { displayName });
+    await setDoc(doc(db, "usuarios", cred.user.uid), {
+      uid: cred.user.uid,
+      nombre: displayName,
       email,
-      displayName: displayName || "",
-      role: "user",
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
+      role: "user", // por defecto
+      creado: new Date(),
     });
-    return cred;
   };
 
-  const updateDisplayName = async (displayName) => {
-    if (!auth.currentUser) return;
-    await updateProfile(auth.currentUser, { displayName });
-    setUser({ ...auth.currentUser });
-    // reflejar en usuarios/{uid}
-    const ref = doc(db, "usuarios", auth.currentUser.uid);
-    await setDoc(ref, { displayName, updatedAt: serverTimestamp() }, { merge: true });
-  };
+  // Login
+  const login = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
+  // Logout
   const logout = () => signOut(auth);
 
+  const value = {
+    user,
+    userData, // acá está el rol
+    register,
+    login,
+    logout,
+  };
+
   return (
-    <AuthContext.Provider
-      value={{ user, initializing, login, register, logout, updateDisplayName }}
-    >
-      {children}
+    <AuthContext.Provider value={value}>
+      {!loading && children}
     </AuthContext.Provider>
   );
-}
-
-export function useAuth() {
-  return useContext(AuthContext);
-}
-
-// En tu AuthContext.jsx
-const register = async (email, password, displayName) => {
-  try {
-    // 1️⃣ Crear el usuario en Firebase Auth
-    const cred = await createUserWithEmailAndPassword(auth, email, password);
-    console.log("[register] Usuario Auth creado:", cred.user.uid);
-
-    // 2️⃣ Actualizar displayName en Auth si se proporciona
-    if (displayName) {
-      await updateProfile(cred.user, { displayName });
-      console.log("[register] displayName actualizado en Auth:", displayName);
-    }
-
-    // 3️⃣ Crear doc en Firestore en "usuarios/{uid}"
-    const ref = doc(db, "usuarios", cred.user.uid);
-
-    // ⚠️ usamos setDoc con merge:false para crear desde cero
-    await setDoc(ref, {
-      email,
-      displayName: displayName || "",
-      role: "user",
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
-    });
-    console.log("[register] Documento Firestore creado ✅");
-
-    return cred; // devolver credenciales por si es necesario
-
-  } catch (err) {
-    console.error("[register] error:", err);
-
-    // Opcional: si Auth se creó pero falló Firestore, borramos el usuario para no quedar inconsistente
-    if (auth.currentUser && err.code && err.code !== "auth/email-already-in-use") {
-      await auth.currentUser.delete().catch((e) => console.error("[register] rollback delete user failed:", e));
-      console.log("[register] Usuario Auth eliminado por fallo en Firestore");
-    }
-
-    throw err; // re-lanzamos para mostrar error en UI
-  }
 };

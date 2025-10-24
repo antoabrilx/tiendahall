@@ -19,6 +19,7 @@ import AdminProductos from "./pages/AdminProductos";
 import PrivateRoute from "./components/PrivateRoute";
 import Perfil from "./pages/Perfil";
 import AdminRoute from "./components/AdminRoute";
+import AdminUsuarios from "./pages/Adminusuarios"; // 🔹 NUEVO
 
 // 🔹 Muevo AnimatedRoutes fuera del App principal
 function AnimatedRoutes({ onAddToCart }) {
@@ -57,6 +58,8 @@ function AnimatedRoutes({ onAddToCart }) {
         />
         <Route path="/ir-inicio" element={<PageFade><ScrollToSection sectionId="inicio" /></PageFade>} />
         <Route path="/ir-nosotros" element={<PageFade><ScrollToSection sectionId="nosotros" /></PageFade>} />
+
+        {/* 🔹 RUTAS ADMIN */}
         <Route
           path="/admin/productos"
           element={
@@ -65,7 +68,20 @@ function AnimatedRoutes({ onAddToCart }) {
             </AdminRoute>
           }
         />
-        <Route path="*" element={<PageFade><h2 style={{ padding: "2rem" }}>Página no encontrada 😓</h2></PageFade>} />
+        <Route
+          path="/admin/usuarios"
+          element={
+            <AdminRoute>
+              <PageFade><AdminUsuarios /></PageFade>
+            </AdminRoute>
+          }
+        />
+
+        {/* 🔹 404 */}
+        <Route
+          path="*"
+          element={<PageFade><h2 style={{ padding: "2rem" }}>Página no encontrada 😓</h2></PageFade>}
+        />
       </Routes>
     </AnimatePresence>
   );

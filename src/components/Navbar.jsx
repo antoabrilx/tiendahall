@@ -7,10 +7,8 @@ import useUserDoc from "../hooks/useUserDoc";
 import "../styles/Navbar.css";
 import { Link as ScrollLink } from "react-scroll";
 
-
 const Navbar = ({ onCartClick, triggerBounce: externalBounce }) => {
   const { cart } = useCart();
-
   const { user, logout } = useAuth();
   const { userDoc } = useUserDoc(); // para saber si es admin
   const navigate = useNavigate();
@@ -60,9 +58,14 @@ const Navbar = ({ onCartClick, triggerBounce: externalBounce }) => {
     navigate("/perfil");
   };
 
-  const goAdmin = () => {
+  const goAdminProductos = () => {
     setOpenMenu(false);
     navigate("/admin/productos");
+  };
+
+  const goAdminUsuarios = () => {
+    setOpenMenu(false);
+    navigate("/admin/usuarios");
   };
 
   const doLogout = async () => {
@@ -82,25 +85,34 @@ const Navbar = ({ onCartClick, triggerBounce: externalBounce }) => {
 
         {/* Navegación */}
         <div className="hidden md:flex flex-col md:flex-row w-full md:w-auto md:space-x-8 mt-4 md:mt-0">
-          <Link to="/ir-inicio" className="py-2 hover:text-[#D4AF37] transition-colors">Inicio</Link>
+          <Link to="/ir-inicio" className="py-2 hover:text-[#D4AF37] transition-colors">
+            Inicio
+          </Link>
+
           <ScrollLink
-          to="nosotros"   // el id del <section>
-          smooth={true}
-          duration={600}
-          offset={-80}    // ajustá si tu navbar tapa parte del texto
-          className="py-2 hover:text-[#D4AF37] transition-colors cursor-pointer"
+            to="nosotros"
+            smooth={true}
+            duration={600}
+            offset={-80}
+            className="py-2 hover:text-[#D4AF37] transition-colors cursor-pointer"
           >
-          Nosotros
+            Nosotros
           </ScrollLink>
 
-          <Link to="/productos" className="py-2 hover:text-[#D4AF37] transition-colors">Nuestros Vinos</Link>
-          <Link to="/contacto" className="py-2 hover:text-[#D4AF37] transition-colors">Contacto</Link>
+          <Link to="/productos" className="py-2 hover:text-[#D4AF37] transition-colors">
+            Nuestros Vinos
+          </Link>
+          <Link to="/contacto" className="py-2 hover:text-[#D4AF37] transition-colors">
+            Contacto
+          </Link>
         </div>
 
         {/* Usuario y carrito */}
         <div className="flex items-center space-x-4">
           {!user ? (
-            <Link to="/login" className="hover:text-[#D4AF37]">Iniciar sesión</Link>
+            <Link to="/login" className="hover:text-[#D4AF37]">
+              Iniciar sesión
+            </Link>
           ) : (
             <div className="relative" ref={menuRef}>
               <button
@@ -117,16 +129,36 @@ const Navbar = ({ onCartClick, triggerBounce: externalBounce }) => {
               </button>
 
               {openMenu && (
-                <div className="absolute right-0 mt-2 w-48 bg-white text-[#2C1A1D] rounded shadow-md overflow-hidden">
-                  <button onClick={goPerfil} className="w-full text-left px-4 py-2 hover:bg-gray-100">
+                <div className="absolute right-0 mt-2 w-56 bg-white text-[#2C1A1D] rounded shadow-md overflow-hidden">
+                  <button
+                    onClick={goPerfil}
+                    className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                  >
                     Mi perfil
                   </button>
+
+                  {/* Opción solo visible para admin */}
                   {userDoc?.role === "admin" && (
-                    <button onClick={goAdmin} className="w-full text-left px-4 py-2 hover:bg-gray-100">
-                      Admin productos
-                    </button>
+                    <>
+                      <button
+                        onClick={goAdminProductos}
+                        className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                      >
+                        Administrar productos
+                      </button>
+                      <button
+                        onClick={goAdminUsuarios}
+                        className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                      >
+                        Administrar usuarios
+                      </button>
+                    </>
                   )}
-                  <button onClick={doLogout} className="w-full text-left px-4 py-2 hover:bg-gray-100">
+
+                  <button
+                    onClick={doLogout}
+                    className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                  >
                     Cerrar sesión
                   </button>
                 </div>
