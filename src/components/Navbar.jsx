@@ -8,20 +8,21 @@ import "../styles/Navbar.css";
 import { scroller } from "react-scroll";
 
 const Navbar = ({ onCartClick, triggerBounce: externalBounce }) => {
-  const { cart } = useCart();
+  // 🔹 Traemos cartCount además de cart
+  const { cart, cartCount } = useCart();
   const { user, logout } = useAuth();
-  const { userDoc } = useUserDoc(); // para saber si es admin
+  const { userDoc } = useUserDoc();
   const navigate = useNavigate();
   const location = useLocation();
 
   const cartIconRef = useRef(null);
   const [triggerBounce, setTriggerBounce] = useState(false);
 
-  // dropdown perfil
+  // Dropdown perfil
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef(null);
 
-  // cerrar dropdown al clickear afuera
+  // Cerrar dropdown al hacer click fuera
   useEffect(() => {
     const onDocClick = (e) => {
       if (!menuRef.current) return;
@@ -31,7 +32,7 @@ const Navbar = ({ onCartClick, triggerBounce: externalBounce }) => {
     return () => document.removeEventListener("mousedown", onDocClick);
   }, []);
 
-  // rebote por evento externo (agregar al carrito)
+  // Rebote por evento externo (agregar al carrito)
   useEffect(() => {
     if (externalBounce) setTriggerBounce(true);
   }, [externalBounce]);
@@ -47,7 +48,7 @@ const Navbar = ({ onCartClick, triggerBounce: externalBounce }) => {
     }
   }, [triggerBounce]);
 
-  // rebote cuando cambia el carrito
+  // Rebote cuando cambia el carrito
   useEffect(() => {
     if (cart.length > 0) setTriggerBounce(true);
   }, [cart]);
@@ -75,23 +76,20 @@ const Navbar = ({ onCartClick, triggerBounce: externalBounce }) => {
     navigate("/", { replace: true });
   };
 
-  // 🔹 Función para ir a la sección “Nosotros”
+  // 🔹 Ir a la sección “Nosotros”
   const goNosotros = () => {
     if (location.pathname === "/") {
-      // Si ya estás en inicio → solo hace scroll
       scroller.scrollTo("nosotros", {
-        //smooth: true,
         duration: 300,
         offset: -80,
       });
     } else {
-      // Si estás en otra ruta → navega a inicio y guarda la intención
       localStorage.setItem("scrollToNosotros", "true");
       navigate("/");
     }
   };
 
-  // 🔹 Al cargar la página, si venís de otra sección, hace scroll automáticamente
+  // 🔹 Scroll automático si venís de otra sección
   useEffect(() => {
     if (location.pathname === "/" && localStorage.getItem("scrollToNosotros") === "true") {
       setTimeout(() => {
@@ -193,13 +191,17 @@ const Navbar = ({ onCartClick, triggerBounce: externalBounce }) => {
             </div>
           )}
 
-          {/* Carrito */}
+          {/* 🔹 Carrito (corregido para mostrar cantidad total) */}
           <div className="relative">
-            <button onClick={onCartClick} className="hover:text-[#D4AF37] relative" ref={cartIconRef}>
+            <button
+              onClick={onCartClick}
+              className="hover:text-[#D4AF37] relative"
+              ref={cartIconRef}
+            >
               <i className="fas fa-shopping-cart" />
-              {cart.length > 0 && (
+              {cartCount > 0 && (
                 <span className="cart-count absolute -top-2 -right-2 bg-[#D4AF37] text-[#2C1A1D] rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
-                  {cart.length}
+                  {cartCount}
                 </span>
               )}
             </button>

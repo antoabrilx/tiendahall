@@ -1,5 +1,5 @@
 // src/context/CartContext.jsx
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useMemo } from "react";
 
 const CartContext = createContext();
 export const useCart = () => useContext(CartContext);
@@ -12,7 +12,9 @@ export const CartProvider = ({ children }) => {
     if (existe) {
       setCart(
         cart.map((item) =>
-          item.id === producto.id ? { ...item, cantidad: item.cantidad + 1 } : item
+          item.id === producto.id
+            ? { ...item, cantidad: item.cantidad + 1 }
+            : item
         )
       );
     } else {
@@ -26,10 +28,26 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => setCart([]);
 
-  const total = cart.reduce((sum, item) => sum + Number(item.precio || 0) * item.cantidad, 0);
+  // 🔹 Total en dinero
+  const total = useMemo(
+    () =>
+      cart.reduce(
+        (sum, item) => sum + Number(item.precio || 0) * (item.cantidad ?? 1),
+        0
+      ),
+    [cart]
+  );
+
+  // 🔹 Total de unidades (no solo productos distintos)
+  const cartCount = useMemo(
+    () => cart.reduce((sum, item) => sum + (item.cantidad ?? 1), 0),
+    [cart]
+  );
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, total }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, removeFromCart, clearCart, total, cartCount }}
+    >
       {children}
     </CartContext.Provider>
   );
