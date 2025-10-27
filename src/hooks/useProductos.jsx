@@ -11,14 +11,19 @@ export function useProductos() {
   const colRef = useMemo(() => collection(db, "productos"), []);
 
   useEffect(() => {
-    const q = query(colRef); // sin orderBy por compatibilidad con docs viejos
+    const q = query(colRef);
     const unsub = onSnapshot(
       q,
       (snap) => {
         const list = snap.docs.map((d) => {
           const data = d.data();
-          const { id: _ignore, ...rest } = data || {}; // nunca pisar doc.id
-          return { id: d.id, ...rest };
+          // ✅ Aseguramos nombres consistentes (para el modal)
+          return {
+            id: d.id,
+            ...data,
+            // Alias opcional para compatibilidad
+            anio: data.year ?? data.anio ?? data.año ?? null,
+          };
         });
         setProductos(list);
       },
@@ -66,18 +71,21 @@ function ensureStringId(id, where) {
 function normalizeProducto(data, isCreate) {
   const precio = toNumber(data?.precio, 0);
   const stock  = toNumber(data?.stock, 0);
-  const year   = data?.year !== "" && data?.year != null ? toNumber(data?.year, null) : null;
+  const year   =
+    data?.anio || data?.año || data?.year
+      ? toNumber(data?.anio ?? data?.año ?? data?.year, null)
+      : null;
 
   const base = {
     nombre:      trimOrEmpty(data?.nombre),
     descripcion: trimOrEmpty(data?.descripcion),
     categoria:   trimOrEmpty(data?.categoria),
     color:       trimOrEmpty(data?.color),
-    year,
     region:      trimOrEmpty(data?.region),
     imagenUrl:   trimOrEmpty(data?.imagenUrl),
     precio,
     stock,
+    year,
     updatedAt: serverTimestamp(),
   };
   if (isCreate) base.createdAt = serverTimestamp();

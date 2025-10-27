@@ -1,0 +1,112 @@
+/* Fondo del modal */
+.modal-overlay {
+position: fixed;
+inset: 0;
+background-color: rgba(0, 0, 0, 0.5);
+backdrop-filter: blur(4px);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 50;
+}
+
+/* Contenedor principal */
+.modal-content {
+background: #fff;
+border-radius: 1rem;
+max-width: 800px;
+width: 90%;
+max-height: 90vh;
+overflow-y: auto;
+position: relative;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: scale(0.95); }
+to { opacity: 1; transform: scale(1); }
+}
+
+/* Botón cerrar */
+.modal-close {
+position: absolute;
+top: 0.75rem;
+right: 0.75rem;
+background: none;
+border: none;
+font-size: 1.5rem;
+color: #333;
+cursor: pointer;
+  z-index: 10; /* 🔹 Asegura que esté encima de todo */
+transition: transform 0.2s ease;
+}
+
+.modal-close:hover {
+transform: scale(1.2);
+color: #8B0000;
+}
+
+/* Cuerpo del modal */
+.modal-body {
+display: flex;
+flex-direction: column;
+gap: 1.5rem;
+padding: 2rem;
+}
+
+@media (min-width: 640px) {
+.modal-body {
+    flex-direction: row;
+}
+}
+
+/* Imagen */
+.modal-img {
+width: 100%;
+max-width: 300px;
+object-fit: contain;
+border-radius: 0.5rem;
+background-color: #f3f3f3;
+}
+
+/* Información */
+.modal-info h2 {
+font-size: 1.8rem;
+font-weight: bold;
+margin-bottom: 0.5rem;
+color: #8B0000;
+}
+
+.modal-desc {
+color: #555;
+margin-bottom: 1rem;
+line-height: 1.5;
+}
+
+.btn-add {
+background-color: #8B0000;
+color: white;
+border: none;
+padding: 0.7rem 1.5rem;
+border-radius: 0.5rem;
+cursor: pointer;
+transition: background 0.2s ease;
+}
+
+.btn-add:hover {
+background-color: #a10000;
+}
+.modal-details p {
+margin: 0.25rem 0;
+color: #333;
+}
+
+.modal-meta {
+margin-top: 1rem;
+}
+
+.modal-meta p {
+margin: 0.25rem 0;
+}
+

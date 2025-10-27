@@ -1,10 +1,12 @@
 // src/components/productos/Productos.jsx
-import React from "react";
+import React, { useState } from "react";
 import "./Productos.css";
 import { useProductos } from "../../hooks/useProductos";
+import ProductoModal from "./ProductoModal";
 
 export default function Productos({ onAddToCart }) {
-  const { productos } = useProductos(); // ✅ ahora sí se usa
+  const { productos } = useProductos();
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
 
   if (!productos) return null;
 
@@ -13,16 +15,21 @@ export default function Productos({ onAddToCart }) {
       <h2 className="text-2xl font-bold mb-4">Nuestros productos</h2>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {productos.map((p) => (
-          <article key={p.id} className="bg-white rounded-xl shadow p-3 grid gap-2">
+          <article
+            key={p.id}
+            className="bg-white rounded-xl shadow p-3 grid gap-2 cursor-pointer hover:shadow-lg transition"
+            onClick={() => setProductoSeleccionado(p)}
+          >
             {p.imagenUrl ? (
               <img
-  src={p.imagenUrl}
-  alt={p.nombre}
-  className="w-full h-64 object-contain rounded bg-gray-100"
-/>
-
+                src={p.imagenUrl}
+                alt={p.nombre}
+                className="w-full h-64 object-contain rounded bg-gray-100"
+              />
             ) : (
-              <div className="w-full h-48 bg-gray-200 rounded grid place-items-center text-gray-500">Sin imagen</div>
+              <div className="w-full h-48 bg-gray-200 rounded grid place-items-center text-gray-500">
+                Sin imagen
+              </div>
             )}
             <h3 className="text-lg font-semibold">{p.nombre}</h3>
             <p className="text-sm text-gray-600 line-clamp-2">{p.descripcion}</p>
@@ -32,7 +39,10 @@ export default function Productos({ onAddToCart }) {
             </div>
             {onAddToCart && (
               <button
-                onClick={() => onAddToCart(p)}
+                onClick={(e) => {
+                  e.stopPropagation(); // evita que se abra el modal al hacer clic
+                  onAddToCart(p);
+                }}
                 className="mt-2 px-3 py-2 rounded bg-[#8B0000] text-white hover:brightness-110"
               >
                 Agregar al carrito
@@ -41,6 +51,15 @@ export default function Productos({ onAddToCart }) {
           </article>
         ))}
       </div>
+
+      {/* Modal */}
+      {productoSeleccionado && (
+        <ProductoModal
+          producto={productoSeleccionado}
+          onClose={() => setProductoSeleccionado(null)}
+          onAddToCart={onAddToCart}
+        />
+      )}
     </section>
   );
 }
