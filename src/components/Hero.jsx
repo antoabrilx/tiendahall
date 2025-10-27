@@ -2,7 +2,7 @@
 import React from "react";
 import "../styles/Hero.css";
 import { Link } from "react-router-dom";
-import fondoVinos from "../img/fondoinicio2.png";
+import fondoVinos from "../img/fondo.jpg";
 
 export default function Hero() {
   return (

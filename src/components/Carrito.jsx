@@ -5,27 +5,28 @@ import { useCart } from "../context/CartContext";
 const Carrito = forwardRef((props, ref) => {
   const { cart, removeFromCart, clearCart, total } = useCart();
   const [visible, setVisible] = useState(false);
+  const [showThanks, setShowThanks] = useState(false);
 
-  // Exponer método para abrir desde afuera (Navbar/App)
   useImperativeHandle(ref, () => ({
     openCart: () => setVisible(true),
   }));
 
   const handleCheckout = () => {
-    alert("Simulación de pago exitosa. ¡Gracias por tu compra!");
     clearCart();
     setVisible(false);
+    setShowThanks(true);
+    setTimeout(() => setShowThanks(false), 4000);
   };
 
   return (
     <>
+      {/* Carrito */}
       {visible && (
         <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
           <div className="bg-white rounded-lg p-6 max-w-md w-full shadow-lg relative">
             <button
               className="absolute top-2 right-4 text-2xl leading-none"
               onClick={() => setVisible(false)}
-              aria-label="Cerrar carrito"
             >
               ×
             </button>
@@ -72,6 +73,25 @@ const Carrito = forwardRef((props, ref) => {
                 </button>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Pantalla de gracias */}
+      {showThanks && (
+        <div className="fixed inset-0 flex justify-center items-center bg-black/40 z-50">
+          <div className="bg-white rounded-xl shadow-lg p-8 max-w-sm w-full text-center animate-fadeIn">
+            {/* Icono de carrito */}
+            <img
+              src="/imagenes/carrito.jpg" // reemplazá con tu icono de carrito o subilo a public/
+              alt="Carrito"
+              className="mx-auto w-24 h-24 mb-4"
+            />
+            <h2 className="text-3xl font-bold text-[#8B0000] mb-2">¡Gracias por su compra!</h2>
+            <p className="text-gray-700 mb-4">
+              Su pedido ha sido registrado correctamente.
+            </p>
+            <p className="font-semibold text-[#8B0000]">Tienda Haal</p>
           </div>
         </div>
       )}

@@ -15,7 +15,12 @@ export default function Productos({ onAddToCart }) {
         {productos.map((p) => (
           <article key={p.id} className="bg-white rounded-xl shadow p-3 grid gap-2">
             {p.imagenUrl ? (
-              <img src={p.imagenUrl} alt={p.nombre} className="w-full h-48 object-cover rounded" />
+              <img
+  src={p.imagenUrl}
+  alt={p.nombre}
+  className="w-full h-64 object-contain rounded bg-gray-100"
+/>
+
             ) : (
               <div className="w-full h-48 bg-gray-200 rounded grid place-items-center text-gray-500">Sin imagen</div>
             )}
