@@ -81,7 +81,7 @@ const Navbar = ({ onCartClick, triggerBounce: externalBounce }) => {
         {/* Navegación */}
         <div className="hidden md:flex flex-col md:flex-row w-full md:w-auto md:space-x-8 mt-4 md:mt-0">
           <Link to="/ir-inicio" className="py-2 hover:text-[#D4AF37] transition-colors">Inicio</Link>
-          <Link to="/ir-nosotros" className="py-2 hover:text-[#D4AF37] transition-colors">Nosotros</Link>
+          <Link to="/nosotros" className="py-2 hover:text-[#D4AF37] transition-colors">Nosotros</Link>
           <Link to="/productos" className="py-2 hover:text-[#D4AF37] transition-colors">Nuestros Vinos</Link>
           <Link to="/contacto" className="py-2 hover:text-[#D4AF37] transition-colors">Contacto</Link>
         </div>
