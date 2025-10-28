@@ -3,7 +3,7 @@ import React, { useState, useImperativeHandle, forwardRef } from "react";
 import { useCart } from "../context/CartContext";
 
 const Carrito = forwardRef((props, ref) => {
-  const { cart, removeFromCart, clearCart } = useCart();
+  const { cart, removeFromCart, clearCart, increaseQuantity, decreaseQuantity } = useCart();
   const [visible, setVisible] = useState(false);
   const [showThanks, setShowThanks] = useState(false);
 
@@ -11,13 +11,11 @@ const Carrito = forwardRef((props, ref) => {
     openCart: () => setVisible(true),
   }));
 
-  // 🔹 Total en dinero (recalculado por seguridad)
   const total = cart.reduce(
     (acc, item) => acc + Number(item.precio) * (item.cantidad ?? 1),
     0
   );
 
-  // 🔹 Total de unidades (por si querés mostrarlo en el ícono)
   const totalItems = cart.reduce((acc, item) => acc + (item.cantidad ?? 1), 0);
 
   const handleCheckout = () => {
@@ -29,7 +27,6 @@ const Carrito = forwardRef((props, ref) => {
 
   return (
     <>
-      {/* Carrito */}
       {visible && (
         <div
           className="fixed inset-0 bg-black/50 flex justify-center items-center z-50"
@@ -37,7 +34,7 @@ const Carrito = forwardRef((props, ref) => {
         >
           <div
             className="bg-white rounded-lg p-6 max-w-md w-full shadow-lg relative"
-            onClick={(e) => e.stopPropagation()} // ❗ evita cerrar al click interno
+            onClick={(e) => e.stopPropagation()}
           >
             <button
               className="absolute top-2 right-4 text-2xl leading-none"
@@ -62,10 +59,23 @@ const Carrito = forwardRef((props, ref) => {
                   >
                     <div>
                       <h4 className="font-medium">{item.nombre}</h4>
-                      <p className="text-sm text-gray-500">
-                        Cantidad: {item.cantidad ?? 1}
-                      </p>
+                      <div className="flex items-center gap-2 mt-1">
+                        <button
+                          onClick={() => decreaseQuantity(item.id)}
+                          className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300"
+                        >
+                          -
+                        </button>
+                        <span>{item.cantidad}</span>
+                        <button
+                          onClick={() => increaseQuantity(item.id)}
+                          className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300"
+                        >
+                          +
+                        </button>
+                      </div>
                     </div>
+
                     <div className="text-right">
                       <p>${(Number(item.precio) * (item.cantidad ?? 1)).toFixed(2)}</p>
                       <button
@@ -95,7 +105,6 @@ const Carrito = forwardRef((props, ref) => {
         </div>
       )}
 
-      {/* Pantalla de gracias */}
       {showThanks && (
         <div className="fixed inset-0 flex justify-center items-center bg-black/40 z-50">
           <div className="bg-white rounded-xl shadow-lg p-8 max-w-sm w-full text-center animate-fadeIn">
