@@ -188,3 +188,72 @@
     border-radius: 0;
     display: block;
 }
+ /* === Filtros y buscador === */
+.productos-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.productos-titulo {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.filtros-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.input-busqueda,
+.select-filtro,
+.rango-precio input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.input-busqueda {
+  width: 220px;
+}
+
+.select-filtro {
+  background-color: white;
+  cursor: pointer;
+}
+
+.rango-precio {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.no-resultados {
+  text-align: center;
+  color: #666;
+  margin-top: 2rem;
+  font-style: italic;
+}
+
+/* Sombras uniformes en productos */
+article {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+article:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Buscador simple */
+input[type="text"] {
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+  box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.3);
+}
