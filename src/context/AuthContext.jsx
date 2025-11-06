@@ -1,4 +1,3 @@
-// src/context/AuthContext.jsx
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { auth, db } from "../firebase";
 import {
@@ -7,16 +6,17 @@ import {
   signOut,
   onAuthStateChanged,
   updateProfile,
+  updateEmail,
+  updatePassword,
 } from "firebase/auth";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, updateDoc } from "firebase/firestore";
 
 const AuthContext = createContext();
-
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [userData, setUserData] = useState(null); // datos de Firestore (rol)
+  const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -25,9 +25,7 @@ export const AuthProvider = ({ children }) => {
       if (currentUser) {
         const ref = doc(db, "usuarios", currentUser.uid);
         const snap = await getDoc(ref);
-        if (snap.exists()) {
-          setUserData(snap.data());
-        }
+        if (snap.exists()) setUserData(snap.data());
       } else {
         setUserData(null);
       }
@@ -44,23 +42,50 @@ export const AuthProvider = ({ children }) => {
       uid: cred.user.uid,
       nombre: displayName,
       email,
-      role: "user", // por defecto
+      role: "user",
       creado: new Date(),
     });
   };
 
-  // Login
+  // Login / Logout
   const login = (email, password) => signInWithEmailAndPassword(auth, email, password);
-
-  // Logout
   const logout = () => signOut(auth);
+
+  // 🔹 Actualizar nombre
+  const updateDisplayName = async (newName) => {
+    if (!auth.currentUser) return;
+    await updateProfile(auth.currentUser, { displayName: newName });
+    const ref = doc(db, "usuarios", auth.currentUser.uid);
+    await updateDoc(ref, { nombre: newName });
+    setUser({ ...auth.currentUser });
+    setUserData((prev) => ({ ...prev, nombre: newName }));
+  };
+
+  // 🔹 Actualizar email
+  const updateUserEmail = async (newEmail) => {
+    if (!auth.currentUser) throw new Error("No hay usuario autenticado");
+    await updateEmail(auth.currentUser, newEmail);
+    const ref = doc(db, "usuarios", auth.currentUser.uid);
+    await updateDoc(ref, { email: newEmail });
+    setUser({ ...auth.currentUser });
+    setUserData((prev) => ({ ...prev, email: newEmail }));
+  };
+
+  // 🔹 Actualizar contraseña
+  const updateUserPassword = async (newPassword) => {
+    if (!auth.currentUser) throw new Error("No hay usuario autenticado");
+    await updatePassword(auth.currentUser, newPassword);
+  };
 
   const value = {
     user,
-    userData, // acá está el rol
+    userData,
     register,
     login,
     logout,
+    updateDisplayName,
+    updateUserEmail,
+    updateUserPassword,
   };
 
   return (

@@ -20,6 +20,8 @@ import PrivateRoute from "./components/PrivateRoute";
 import Perfil from "./pages/Perfil";
 import AdminRoute from "./components/AdminRoute";
 import AdminUsuarios from "./pages/Adminusuarios"; // 🔹 NUEVO
+import EditarPerfil from "./pages/EditarPerfil";
+
 
 // 🔹 Muevo AnimatedRoutes fuera del App principal
 function AnimatedRoutes({ onAddToCart }) {
@@ -86,6 +88,15 @@ function AnimatedRoutes({ onAddToCart }) {
     </AnimatePresence>
   );
 }
+
+<Route
+  path="/editar-perfil"
+  element={
+    <PrivateRoute>
+      <PageFade><EditarPerfil /></PageFade>
+    </PrivateRoute>
+  }
+/>
 
 // 🔹 NUEVO componente interno que sí puede usar useCart()
 function AppWithCart() {
